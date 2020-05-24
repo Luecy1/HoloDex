@@ -5,19 +5,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.holodex.MyItemRecyclerViewAdapter
 import com.example.holodex.R
+import com.example.holodex.di.ViewModelBuilder
+import com.example.holodex.di.ViewModelKey
 import com.example.holodex.list.DummyContent.DummyItem
+import dagger.Binds
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
+import dagger.android.support.DaggerFragment
+import dagger.multibindings.IntoMap
+import javax.inject.Inject
 
-class HololiveListFragment : Fragment() {
+class HololiveListFragment : DaggerFragment() {
 
     private var columnCount = 2
 
     private var listener: OnListFragmentInteractionListener? = null
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by viewModels<HololiveListViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,4 +92,21 @@ class HololiveListFragment : Fragment() {
                 }
             }
     }
+}
+
+@Module
+abstract class HoloLiveListViewModelModule {
+
+    @ContributesAndroidInjector(
+        modules = [
+            ViewModelBuilder::class
+        ]
+    )
+    internal abstract fun hololiveListFragment(): HololiveListFragment
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HololiveListViewModel::class)
+    abstract fun bindViewModel(viewModel: HololiveListViewModel): ViewModel
+
 }
