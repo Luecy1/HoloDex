@@ -1,6 +1,5 @@
 package com.example.holodex.list
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import com.example.holodex.MyItemRecyclerViewAdapter
 import com.example.holodex.R
 import com.example.holodex.di.ViewModelBuilder
 import com.example.holodex.di.ViewModelKey
-import com.example.holodex.list.DummyContent.DummyItem
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -27,20 +25,10 @@ class HololiveListFragment : DaggerFragment() {
 
     private var columnCount = 2
 
-    private var listener: OnListFragmentInteractionListener? = null
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by viewModels<HololiveListViewModel> { viewModelFactory }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,42 +43,11 @@ class HololiveListFragment : DaggerFragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyItemRecyclerViewAdapter(
-                    DummyContent.ITEMS,
-                    listener
-                )
+                adapter = MyItemRecyclerViewAdapter(Content.ITEMS) {
+                }
             }
         }
         return view
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem?)
-    }
-
-    companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            HololiveListFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
     }
 }
 
