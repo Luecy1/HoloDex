@@ -1,4 +1,4 @@
-package com.example.holodex
+package com.example.holodex.list
 
 
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import com.example.holodex.R
 import com.example.holodex.list.Content.DummyItem
 import kotlinx.android.synthetic.main.fragment_item.view.*
 

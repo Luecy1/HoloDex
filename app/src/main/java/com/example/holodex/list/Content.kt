@@ -28,7 +28,7 @@ object Content {
     private fun createDummyItem(position: Int): DummyItem {
         return DummyItem(
             position.toString(),
-            "Item " + position,
+            "天音かなた",
             makeDetails(position)
         )
     }

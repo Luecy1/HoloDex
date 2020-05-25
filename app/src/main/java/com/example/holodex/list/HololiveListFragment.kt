@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.holodex.MyItemRecyclerViewAdapter
 import com.example.holodex.R
 import com.example.holodex.di.ViewModelBuilder
 import com.example.holodex.di.ViewModelKey
@@ -43,8 +42,9 @@ class HololiveListFragment : DaggerFragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyItemRecyclerViewAdapter(Content.ITEMS) {
-                }
+                adapter =
+                    MyItemRecyclerViewAdapter(Content.ITEMS) {
+                    }
             }
         }
         return view
