@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,6 +19,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.DaggerFragment
 import dagger.multibindings.IntoMap
+import timber.log.Timber
 import javax.inject.Inject
 
 class HololiveListFragment : DaggerFragment() {
@@ -47,6 +49,14 @@ class HololiveListFragment : DaggerFragment() {
                     }
             }
         }
+
+        viewModel.hololiveLiat.observe(viewLifecycleOwner, Observer { hololiveList ->
+
+            for (liverItem in hololiveList) {
+                Timber.d(liverItem.toString())
+            }
+        })
+
         return view
     }
 }
