@@ -9,9 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.holodex.R
+import com.example.holodex.databinding.FragmentItemListBinding
 import com.example.holodex.di.ViewModelBuilder
 import com.example.holodex.di.ViewModelKey
 import dagger.Binds
@@ -19,45 +17,35 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.DaggerFragment
 import dagger.multibindings.IntoMap
-import timber.log.Timber
 import javax.inject.Inject
 
 class HololiveListFragment : DaggerFragment() {
-
-    private var columnCount = 2
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by viewModels<HololiveListViewModel> { viewModelFactory }
 
+    lateinit var binding: FragmentItemListBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        binding = FragmentItemListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter =
-                    MyItemRecyclerViewAdapter(Content.ITEMS) {
-                    }
-            }
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val adapter = MyItemRecyclerViewAdapter()
+
+        binding.recyclerView.layoutManager = GridLayoutManager(context, 2)
+        binding.recyclerView.adapter = adapter
 
         viewModel.hololiveLiat.observe(viewLifecycleOwner, Observer { hololiveList ->
-
-            for (liverItem in hololiveList) {
-                Timber.d(liverItem.toString())
-            }
+            adapter.submitList(hololiveList)
         })
-
-        return view
     }
 }
 

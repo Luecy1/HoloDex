@@ -6,29 +6,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class HoloLiverRepositoryImpl(
-    val context: Context
+    private val context: Context
 ) : HoloLiverRepository {
 
     override suspend fun getHoloLiveList(): List<HoloLiverItem> = withContext(Dispatchers.IO) {
 
         val list = mutableListOf<HoloLiverItem>()
 
-//        for (i in 0 until 25) {
-//            list.add(
-//                HoloLiverItem(
-//                    id = i,
-//                    name = "天音かなた",
-//                    imageUrl = "https://pbs.twimg.com/profile_images/1263309015661965313/E34lYRNA_400x400.jpg"
-//                )
-//            )
-//        }
-
-        context.assets.open("HoloLiveMember.csv").bufferedReader().readLines().map {
-            val (name, imageUrl) = it.split(",")
+        context.assets.open("HoloLiveMember.csv").bufferedReader().readLines()
+            .filter { it.isNotBlank() }
+            .map {
+                val (id, name, imageUrl) = it.split(",")
 
             list.add(
                 HoloLiverItem(
-                    id = 1,
+                    id = id.toInt(),
                     name = name,
                     imageUrl = imageUrl
                 )
