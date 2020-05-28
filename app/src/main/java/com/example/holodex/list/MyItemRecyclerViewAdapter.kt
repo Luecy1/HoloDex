@@ -1,7 +1,7 @@
 package com.example.holodex.list
 
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,17 +9,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
-import com.example.holodex.R
 import com.example.holodex.data.HoloLiverItem
-import kotlinx.android.synthetic.main.fragment_item.view.*
+import com.example.holodex.databinding.FragmentHololiveItemBinding
 
-class MyItemRecyclerViewAdapter :
+class MyItemRecyclerViewAdapter(context: Context) :
     ListAdapter<HoloLiverItem, MyItemRecyclerViewAdapter.ViewHolder>(ItemCallback()) {
 
+    private val inflater = LayoutInflater.from(context)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_item, parent, false)
-        return ViewHolder(view)
+        val binding = FragmentHololiveItemBinding.inflate(inflater, parent, false)
+
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -28,13 +29,10 @@ class MyItemRecyclerViewAdapter :
         holder.mIdView.load(item.imageUrl)
     }
 
-    inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val mIdView: ImageView = view.liver_image
-        val mContentView: TextView = view.content
-
-        override fun toString(): String {
-            return super.toString() + " '" + mContentView.text + "'"
-        }
+    inner class ViewHolder(binding: FragmentHololiveItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val mIdView: ImageView = binding.liverImage
+        val mContentView: TextView = binding.content
     }
 
     class ItemCallback : DiffUtil.ItemCallback<HoloLiverItem>() {
