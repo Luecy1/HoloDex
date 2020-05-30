@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import coil.transform.RoundedCornersTransformation
+import com.example.holodex.R
 import com.example.holodex.data.HoloLiverItem
 import com.example.holodex.databinding.FragmentHololiveItemBinding
 
@@ -17,16 +19,19 @@ class MyItemRecyclerViewAdapter(context: Context) :
 
     private val inflater = LayoutInflater.from(context)
 
+    private val round = context.resources.getDimension(R.dimen.hololiveItemRound)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = FragmentHololiveItemBinding.inflate(inflater, parent, false)
-
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.mContentView.text = item.name
-        holder.mIdView.load(item.imageUrl)
+        holder.mIdView.load(item.imageUrl) {
+            transformations(RoundedCornersTransformation(topLeft = round, topRight = round))
+        }
     }
 
     inner class ViewHolder(binding: FragmentHololiveItemBinding) :

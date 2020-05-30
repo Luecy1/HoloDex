@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="#FF424242"
+            android:background="@drawable/shape_rounded_bottom"
             android:gravity="center_horizontal"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="#FFFFFFFF"
