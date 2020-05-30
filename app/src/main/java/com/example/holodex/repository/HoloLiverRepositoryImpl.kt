@@ -18,16 +18,16 @@ class HoloLiverRepositoryImpl(
             .map {
                 val (id, name, imageUrl) = it.split(",")
 
-            list.add(
-                HoloLiverItem(
-                    id = id.toInt(),
-                    name = name,
-                    imageUrl = imageUrl
+                list.add(
+                    HoloLiverItem(
+                        id = id.toInt(),
+                        name = name,
+                        imageUrl = imageUrl
+                    )
                 )
-            )
 
-            it.lineSequence()
-        }
+                it.lineSequence()
+            }
 
         return@withContext list
     }
