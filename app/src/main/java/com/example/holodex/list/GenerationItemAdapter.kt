@@ -22,6 +22,8 @@ class GenerationItemAdapter(
 
     private val layoutInflater = LayoutInflater.from(context)
 
+    val adapterCache = mutableMapOf<String, MyItemRecyclerViewAdapter>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemGenerationBinding.inflate(layoutInflater, parent, false)
 
@@ -38,10 +40,13 @@ class GenerationItemAdapter(
         val generation = getItem(position)
         holder.generationText.text = generation.name
 
-        val adapter = MyItemRecyclerViewAdapter(context)
-        holder.recyclerView.adapter = adapter
+        val adapter = adapterCache.getOrPut(generation.name) {
+            MyItemRecyclerViewAdapter(context).apply {
+                submitList(generation.holoLiverList)
+            }
+        }
 
-        adapter.submitList(generation.holoLiverList)
+        holder.recyclerView.adapter = adapter
     }
 
     inner class ViewHolder(binding: ItemGenerationBinding) :

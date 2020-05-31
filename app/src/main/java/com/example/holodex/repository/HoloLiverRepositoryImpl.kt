@@ -51,24 +51,43 @@ class HoloLiverRepositoryImpl(
                         imageUrl = imageUrl
                     )
                 )
-
-                it.lineSequence()
             }
 
-        for (index in 1..5) {
+        context.assets.open("HoloLiveGeneration.csv").bufferedReader().readLines()
+            .filter { it.isNotBlank() }
+            .mapIndexed { index, line ->
+                val (id, name) = line.split(",")
 
-            val filteredList = hololiverList.filter {
-                (it.id % 5) == (index - 1)
+                val holoLiverList = mutableListOf(
+                    hololiverList.random(),
+                    hololiverList.random(),
+                    hololiverList.random(),
+                    hololiverList.random()
+                )
+
+                val generationItem = GenerationItem(
+                    id = id.toInt(),
+                    name = name,
+                    holoLiverList = holoLiverList
+                )
+
+                generationList.add(generationItem)
             }
 
-            val generationItem = GenerationItem(
-                id = index,
-                name = "index:$index",
-                holoLiverList = filteredList
-            )
-
-            generationList.add(generationItem)
-        }
+//        for (index in 1..5) {
+//
+//            val filteredList = hololiverList.filter {
+//                (it.id % 5) == (index - 1)
+//            }
+//
+//            val generationItem = GenerationItem(
+//                id = index,
+//                name = "index:$index",
+//                holoLiverList = filteredList
+//            )
+//
+//            generationList.add(generationItem)
+//        }
 
         return@withContext generationList
     }
