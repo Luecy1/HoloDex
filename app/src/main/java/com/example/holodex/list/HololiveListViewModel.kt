@@ -13,4 +13,7 @@ class HololiveListViewModel @Inject constructor(
         emit(repository.getHoloLiveList())
     }
 
+    val hololiveLiat2 = liveData {
+        emit(repository.getHoloLiveList2())
+    }
 }

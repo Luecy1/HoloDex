@@ -12,7 +12,7 @@ import coil.api.load
 import coil.transform.RoundedCornersTransformation
 import com.example.holodex.R
 import com.example.holodex.data.HoloLiverItem
-import com.example.holodex.databinding.FragmentHololiveItemBinding
+import com.example.holodex.databinding.ItemHololiveBinding
 
 class MyItemRecyclerViewAdapter(context: Context) :
     ListAdapter<HoloLiverItem, MyItemRecyclerViewAdapter.ViewHolder>(ItemCallback()) {
@@ -22,7 +22,7 @@ class MyItemRecyclerViewAdapter(context: Context) :
     private val round = context.resources.getDimension(R.dimen.hololiveItemRound)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = FragmentHololiveItemBinding.inflate(inflater, parent, false)
+        val binding = ItemHololiveBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -34,7 +34,7 @@ class MyItemRecyclerViewAdapter(context: Context) :
         }
     }
 
-    inner class ViewHolder(binding: FragmentHololiveItemBinding) :
+    inner class ViewHolder(binding: ItemHololiveBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val mIdView: ImageView = binding.liverImage
         val mContentView: TextView = binding.content
