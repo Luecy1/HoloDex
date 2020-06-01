@@ -14,8 +14,8 @@ import com.example.holodex.R
 import com.example.holodex.data.HoloLiverItem
 import com.example.holodex.databinding.ItemHololiveBinding
 
-class MyItemRecyclerViewAdapter(context: Context) :
-    ListAdapter<HoloLiverItem, MyItemRecyclerViewAdapter.ViewHolder>(ItemCallback()) {
+class HololiveMemberItemAdapter(context: Context) :
+    ListAdapter<HoloLiverItem, HololiveMemberItemAdapter.ViewHolder>(ItemCallback()) {
 
     private val inflater = LayoutInflater.from(context)
 

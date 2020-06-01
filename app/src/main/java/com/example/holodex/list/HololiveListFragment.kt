@@ -38,15 +38,6 @@ class HololiveListFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val adapter = MyItemRecyclerViewAdapter(view.context)
-//
-//        binding.recyclerView.layoutManager = GridLayoutManager(context, 2)
-//        binding.recyclerView.adapter = adapter
-//        binding.recyclerView.addItemDecoration(GridDecoration(20))
-//
-//        viewModel.hololiveLiat.observe(viewLifecycleOwner, Observer { hololiveList ->
-//            adapter.submitList(hololiveList)
-//        })
 
         val adapter = GenerationItemAdapter(view.context)
 
@@ -56,7 +47,7 @@ class HololiveListFragment : DaggerFragment() {
 
         binding.recyclerView.adapter = adapter
 
-        viewModel.hololiveLiat2.observe(viewLifecycleOwner, Observer { generationList ->
+        viewModel.hololiveLiat.observe(viewLifecycleOwner, Observer { generationList ->
             adapter.submitList(generationList)
         })
     }

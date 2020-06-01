@@ -22,7 +22,7 @@ class GenerationItemAdapter(
 
     private val layoutInflater = LayoutInflater.from(context)
 
-    val adapterCache = mutableMapOf<String, MyItemRecyclerViewAdapter>()
+    private val adapterCache = mutableMapOf<String, HololiveMemberItemAdapter>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemGenerationBinding.inflate(layoutInflater, parent, false)
@@ -41,7 +41,7 @@ class GenerationItemAdapter(
         holder.generationText.text = generation.name
 
         val adapter = adapterCache.getOrPut(generation.name) {
-            MyItemRecyclerViewAdapter(context).apply {
+            HololiveMemberItemAdapter(context).apply {
                 submitList(generation.holoLiverList)
             }
         }
