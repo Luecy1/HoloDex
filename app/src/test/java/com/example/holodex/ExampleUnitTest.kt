@@ -1,16 +1,21 @@
 package com.example.holodex
 
-import org.junit.Assert.assertEquals
+import com.example.holodex.di.AppModule
+import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.runBlocking
+
 import org.junit.Test
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
 class ExampleUnitTest {
+
+    val hololiveAPI = AppModule.provideHoloLiverAPI()
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun ときのそら_取得できる() {
+        runBlocking {
+            val members = hololiveAPI.hololiveMembers()
+            assertThat(members.first().name)
+                .isEqualTo("ときのそら")
+        }
     }
 }

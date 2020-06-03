@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.holodex.data.GenerationItem
+import com.example.holodex.data.Result
 import com.example.holodex.databinding.FragmentItemListBinding
 import com.example.holodex.di.ViewModelBuilder
 import com.example.holodex.di.ViewModelKey
@@ -48,7 +50,12 @@ class HololiveListFragment : DaggerFragment() {
         binding.recyclerView.adapter = adapter
 
         viewModel.hololiveLiat.observe(viewLifecycleOwner, Observer { generationList ->
-            adapter.submitList(generationList)
+
+            when (generationList) {
+                is Result.Success<List<GenerationItem>> -> {
+                    adapter.submitList(generationList.data)
+                }
+            }
         })
     }
 }

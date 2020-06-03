@@ -3,6 +3,8 @@ package com.example.holodex.repository
 import android.content.Context
 import com.example.holodex.data.GenerationItem
 import com.example.holodex.data.HoloLiverItem
+import com.example.holodex.data.Result
+import com.example.holodex.data.Result.Success
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -10,16 +12,17 @@ class HoloLiverRepositoryImpl(
     private val context: Context
 ) : HoloLiverRepository {
 
-    override suspend fun getHoloLiveList(): List<GenerationItem> = withContext(Dispatchers.IO) {
+    override suspend fun getHoloLiveList(): Result<List<GenerationItem>> =
+        withContext(Dispatchers.IO) {
 
-        val generationList = mutableListOf<GenerationItem>()
+            val generationList = mutableListOf<GenerationItem>()
 
-        val hololiverList = mutableListOf<HoloLiverItem>()
+            val hololiverList = mutableListOf<HoloLiverItem>()
 
-        context.assets.open("HoloLiveMember.csv").bufferedReader().readLines()
-            .filter { it.isNotBlank() }
-            .map {
-                val (id, name, imageUrl) = it.split(",")
+            context.assets.open("HoloLiveMember.csv").bufferedReader().readLines()
+                .filter { it.isNotBlank() }
+                .map {
+                    val (id, name, imageUrl) = it.split(",")
 
                 hololiverList.add(
                     HoloLiverItem(
@@ -50,6 +53,6 @@ class HoloLiverRepositoryImpl(
 
                 generationList.add(generationItem)
             }
-        return@withContext generationList
+            return@withContext Success(generationList)
     }
 }
