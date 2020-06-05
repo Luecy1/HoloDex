@@ -49,7 +49,7 @@ class HololiveListFragment : DaggerFragment() {
 
         binding.recyclerView.adapter = adapter
 
-        viewModel.hololiveLiat.observe(viewLifecycleOwner, Observer { generationList ->
+        viewModel.hololiveList.observe(viewLifecycleOwner, Observer { generationList ->
 
             when (generationList) {
                 is Result.Success<List<GenerationItem>> -> {

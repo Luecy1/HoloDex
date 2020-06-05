@@ -2,17 +2,17 @@ package com.example.holodex.repository
 
 import android.content.Context
 import com.example.holodex.data.GenerationItem
-import com.example.holodex.data.HoloLiverItem
+import com.example.holodex.data.HololiverItem
 import com.example.holodex.data.Result
 import com.example.holodex.repository.api.HololiveAPIService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class RemoteHoloLiverRepository constructor(
+class RemoteHoloLiveRepository constructor(
     private val context: Context,
     private val hololiveService: HololiveAPIService
-) : HoloLiverRepository {
+) : HoloLiveRepository {
 
     override suspend fun getHoloLiveList(): Result<List<GenerationItem>> =
         withContext(Dispatchers.IO) {
@@ -32,7 +32,7 @@ class RemoteHoloLiverRepository constructor(
                     val generationMember = hololiveMembers.filter { hololive ->
                         hololive.generation.contains(generationId.toString())
                     }.map {
-                        HoloLiverItem(
+                        HololiverItem(
                             id = it.id,
                             name = it.name,
                             imageUrl = it.imageUrl
@@ -42,7 +42,7 @@ class RemoteHoloLiverRepository constructor(
                     GenerationItem(
                         id = generationId,
                         name = name,
-                        holoLiverList = generationMember
+                        hololiverList = generationMember
                     )
                 }
 

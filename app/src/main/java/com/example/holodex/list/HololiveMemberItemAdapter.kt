@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
 import com.example.holodex.R
-import com.example.holodex.data.HoloLiverItem
+import com.example.holodex.data.HololiverItem
 import com.example.holodex.databinding.ItemHololiveBinding
 
 class HololiveMemberItemAdapter(context: Context) :
-    ListAdapter<HoloLiverItem, HololiveMemberItemAdapter.ViewHolder>(ItemCallback()) {
+    ListAdapter<HololiverItem, HololiveMemberItemAdapter.ViewHolder>(ItemCallback()) {
 
     private val inflater = LayoutInflater.from(context)
 
@@ -40,12 +40,12 @@ class HololiveMemberItemAdapter(context: Context) :
         val mContentView: TextView = binding.content
     }
 
-    class ItemCallback : DiffUtil.ItemCallback<HoloLiverItem>() {
-        override fun areItemsTheSame(oldItem: HoloLiverItem, newItem: HoloLiverItem): Boolean {
+    class ItemCallback : DiffUtil.ItemCallback<HololiverItem>() {
+        override fun areItemsTheSame(oldItem: HololiverItem, newItem: HololiverItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: HoloLiverItem, newItem: HoloLiverItem): Boolean {
+        override fun areContentsTheSame(oldItem: HololiverItem, newItem: HololiverItem): Boolean {
             return oldItem == newItem
         }
     }

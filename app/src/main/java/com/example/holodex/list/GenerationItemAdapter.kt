@@ -42,7 +42,7 @@ class GenerationItemAdapter(
 
         val adapter = adapterCache.getOrPut(generation.name) {
             HololiveMemberItemAdapter(context).apply {
-                submitList(generation.holoLiverList)
+                submitList(generation.hololiverList)
             }
         }
 

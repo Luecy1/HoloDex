@@ -2,22 +2,22 @@ package com.example.holodex.repository
 
 import android.content.Context
 import com.example.holodex.data.GenerationItem
-import com.example.holodex.data.HoloLiverItem
+import com.example.holodex.data.HololiverItem
 import com.example.holodex.data.Result
 import com.example.holodex.data.Result.Success
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class HoloLiverRepositoryImpl(
+class HoloLiveRepositoryImpl(
     private val context: Context
-) : HoloLiverRepository {
+) : HoloLiveRepository {
 
     override suspend fun getHoloLiveList(): Result<List<GenerationItem>> =
         withContext(Dispatchers.IO) {
 
             val generationList = mutableListOf<GenerationItem>()
 
-            val hololiverList = mutableListOf<HoloLiverItem>()
+            val hololiverList = mutableListOf<HololiverItem>()
 
             context.assets.open("HoloLiveMember.csv").bufferedReader().readLines()
                 .filter { it.isNotBlank() }
@@ -25,7 +25,7 @@ class HoloLiverRepositoryImpl(
                     val (id, name, imageUrl) = it.split(",")
 
                 hololiverList.add(
-                    HoloLiverItem(
+                    HololiverItem(
                         id = id.toInt(),
                         name = name,
                         imageUrl = imageUrl
@@ -48,7 +48,7 @@ class HoloLiverRepositoryImpl(
                 val generationItem = GenerationItem(
                     id = id.toInt(),
                     name = name,
-                    holoLiverList = holoLiverList
+                    hololiverList = holoLiverList
                 )
 
                 generationList.add(generationItem)
