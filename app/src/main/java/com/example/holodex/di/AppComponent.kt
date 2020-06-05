@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.holodex.App
 import com.example.holodex.list.HoloLiveListViewModelModule
 import com.example.holodex.repository.HoloLiverRepository
-import com.example.holodex.repository.HoloLiverRepositoryImpl
+import com.example.holodex.repository.RemoteHoloLiverRepository
 import com.example.holodex.repository.api.HololiveAPIService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -40,9 +40,17 @@ interface AppComponent : AndroidInjector<App> {
 object AppModule {
 
     @Provides
-    fun provideHoloLiverRepository(applicationContext: Context): HoloLiverRepository {
-        return HoloLiverRepositoryImpl(applicationContext)
+    fun provideHoloLiverRepository(
+        applicationContext: Context,
+        hololiveAPIService: HololiveAPIService
+    ): HoloLiverRepository {
+        return RemoteHoloLiverRepository(applicationContext, hololiveAPIService)
     }
+
+//    @Provides
+//    fun provideHoloLiverRepository(applicationContext: Context): HoloLiverRepository {
+//        return HoloLiverRepositoryImpl(applicationContext)
+//    }
 
     @Provides
     fun provideHoloLiverAPI(): HololiveAPIService {

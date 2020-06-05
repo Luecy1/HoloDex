@@ -35,7 +35,7 @@ class HoloLiverRepositoryImpl(
 
         context.assets.open("HoloLiveGeneration.csv").bufferedReader().readLines()
             .filter { it.isNotBlank() }
-            .mapIndexed { index, line ->
+            .map { line ->
                 val (id, name) = line.split(",")
 
                 val holoLiverList = mutableListOf(
