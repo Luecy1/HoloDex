@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/itemFragment">
+    app:startDestination="@id/hololiverDetailFragment">
 
     <fragment
         android:id="@+id/itemFragment"
         android:name="com.example.holodex.list.HololiveListFragment"
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_item_list" />
+    <fragment
+        android:id="@+id/hololiverDetailFragment"
+        android:name="com.example.holodex.detail.HololiverDetailFragment"
+        android:label="fragment_hololiver_detail"
+        tools:layout="@layout/fragment_hololiver_detail" />
 </navigation>
