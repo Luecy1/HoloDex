@@ -1,131 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="false">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <com.example.holodex.parts.CollapsibleToolbar
-            android:id="@+id/motionLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="false"
-            android:minHeight="50dp"
-            app:layoutDescription="@xml/scene"
-            app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed">
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/dummy_400x400"
-                tools:layout_editor_absoluteX="147dp" />
-
-            <TextView
-                android:id="@+id/label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="天音かなた"
-                android:textColor="#FFF"
-                android:textSize="32dp" />
-
-        </com.example.holodex.parts.CollapsibleToolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".detail.HololiverDetailFragment">
+        android:fitsSystemWindows="false">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="180dp"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_begin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="20dp" />
+            <com.example.holodex.parts.CollapsibleToolbar
+                android:id="@+id/motionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="false"
+                android:minHeight="50dp"
+                app:layoutDescription="@xml/scene"
+                app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="20dp" />
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/dummy_400x400"
+                    tools:layout_editor_absoluteX="147dp" />
 
-            <TextView
-                android:id="@+id/basic_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="基本情報"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintStart_toStartOf="@id/guideline_begin"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="天音かなた"
+                    android:textColor="#FFF"
+                    android:textSize="32dp" />
 
-            <TextView
-                android:id="@+id/basic_info_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="誕生日:4/22\n身長"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:layout_constraintStart_toStartOf="@id/guideline_begin"
-                app:layout_constraintTop_toBottomOf="@id/basic_info" />
+            </com.example.holodex.parts.CollapsibleToolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <TextView
-                android:id="@+id/stream_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="配信情報"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintStart_toStartOf="@+id/guideline_begin"
-                app:layout_constraintTop_toBottomOf="@id/basic_info_detail" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".detail.HololiverDetailFragment">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/stream_info_detail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="hogehoge"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-                app:layout_constraintStart_toStartOf="@id/guideline_begin"
-                app:layout_constraintTop_toBottomOf="@id/stream_info" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/fan_art"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="ファンアート"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintStart_toStartOf="@+id/guideline_begin"
-                app:layout_constraintTop_toBottomOf="@id/stream_info_detail" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_begin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp" />
 
-            <TextView
-                android:id="@+id/fan_art_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:layout_marginTop="12dp"
-                android:text="hogehoge"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:layout_constraintStart_toStartOf="@id/guideline_begin"
-                app:layout_constraintTop_toBottomOf="@id/fan_art" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="20dp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/basic_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="基本情報"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintStart_toStartOf="@id/guideline_begin"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.core.widget.NestedScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <TextView
+                    android:id="@+id/basic_info_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="誕生日:4/22\n身長142cm\nファンネーム：へい民\nイラストレーター：おしおしお"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                    app:layout_constraintStart_toStartOf="@id/guideline_begin"
+                    app:layout_constraintTop_toBottomOf="@id/basic_info" />
+
+                <TextView
+                    android:id="@+id/stream_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="配信情報"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintStart_toStartOf="@+id/guideline_begin"
+                    app:layout_constraintTop_toBottomOf="@id/basic_info_detail" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/stream_info_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@id/guideline_begin"
+                    app:layout_constraintTop_toBottomOf="@id/stream_info"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/stream_info_item" />
+
+                <TextView
+                    android:id="@+id/fan_art"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="ファンアート"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintStart_toStartOf="@+id/guideline_begin"
+                    app:layout_constraintTop_toBottomOf="@id/stream_info_detail" />
+
+                <TextView
+                    android:id="@+id/fan_art_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="8dp"
+                    android:text="TODO"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintStart_toStartOf="@id/guideline_begin"
+                    app:layout_constraintTop_toBottomOf="@id/fan_art" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
