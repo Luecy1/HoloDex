@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.holodex.databinding.FragmentHololiverDetailBinding
+import com.example.holodex.repository.api.xml.StreamInfoParser
+import timber.log.Timber
 
 class HololiverDetailFragment : Fragment() {
 
@@ -38,5 +40,10 @@ class HololiverDetailFragment : Fragment() {
         }
 
         adapter.submitList(list)
+
+
+        for (entry in StreamInfoParser().parse()) {
+            Timber.d(entry.toString())
+        }
     }
 }
