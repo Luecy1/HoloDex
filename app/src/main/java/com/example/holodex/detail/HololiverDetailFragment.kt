@@ -31,7 +31,7 @@ class HololiverDetailFragment : Fragment() {
 
         val list = (1..3).map {
             StreamItem(
-                "title",
+                "title$it",
                 "description",
                 "url"
             )
