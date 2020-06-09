@@ -42,7 +42,7 @@ class HololiverDetailFragment : Fragment() {
         adapter.submitList(list)
 
 
-        for (entry in StreamInfoParser().parse()) {
+        for (entry in StreamInfoParser().parse(requireContext())) {
             Timber.d(entry.toString())
         }
     }

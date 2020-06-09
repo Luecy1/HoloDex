@@ -1,46 +1,29 @@
 package com.example.holodex.repository.api.xml
 
+import android.content.Context
 import android.util.Xml
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
-import java.io.ByteArrayInputStream
 import java.io.IOException
 
 class StreamInfoParser {
 
-    val rss = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <feed xmlns="http://www.w3.org/2005/Atom" xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule">
-        <title type="text">newest questions tagged android - Stack Overflow</title>
-            <entry>
-                <id>http://stackoverflow.com/q/9439999</id>
-                <re:rank scheme="http://stackoverflow.com">0</re:rank>
-                <title type="text">Where is my data file?</title>
-                <author>
-                    <name>cliff2310</name>
-                    <uri>http://stackoverflow.com/users/1128925</uri>
-                </author>
-                <link rel="alternate" href="http://stackoverflow.com/questions/9439999/where-is-my-data-file" />
-                <published>2012-02-25T00:30:54Z</published>
-                <updated>2012-02-25T00:30:54Z</updated>
-                <summary type="html">
-                    I have an Application that requires a data file...
-                </summary>
-            </entry>
-        </feed>
-    """.trimIndent()
-
     private val ns: String? = null
 
-    fun parse(): List<*> {
-
-        val inputStream = ByteArrayInputStream(rss.toByteArray(Charsets.UTF_8))
-        inputStream.use { inputStream ->
-            val parser: XmlPullParser = Xml.newPullParser()
-            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
-            parser.setInput(inputStream, null)
-            parser.nextTag()
-            return readFeed(parser)
+    fun parse(context: Context): List<*> {
+        try {
+            // get view-source:https://www.youtube.com/feeds/videos.xml?channel_id=UCZlDXzGoo7d44bwdNObFacg
+            context.assets.open("amane_kanata.xml").use { inputStream ->
+                val parser: XmlPullParser = Xml.newPullParser()
+                parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
+                parser.setInput(inputStream, null)
+                parser.nextTag()
+                return readFeed(parser)
+            }
+        } catch (e: IOException) {
+            throw RuntimeException(e)
+        } catch (e: XmlPullParserException) {
+            throw RuntimeException(e)
         }
     }
 
@@ -52,9 +35,10 @@ class StreamInfoParser {
             if (parser.eventType != XmlPullParser.START_TAG) {
                 continue
             }
-            // Starts by looking for the entry tag
             if (parser.name == "entry") {
-                entries.add(readEntry(parser))
+                readEntry(parser)?.let {
+                    entries.add(it)
+                }
             } else {
                 skip(parser)
             }
@@ -62,39 +46,37 @@ class StreamInfoParser {
         return entries
     }
 
-    // Parses the contents of an entry. If it encounters a title, summary, or link tag, hands them off
-    // to their respective "read" methods for processing. Otherwise, skips the tag.
-    @Throws(XmlPullParserException::class, IOException::class)
-    private fun readEntry(parser: XmlPullParser): Entry {
+    private fun readEntry(parser: XmlPullParser): Entry? {
         parser.require(XmlPullParser.START_TAG, ns, "entry")
         var title: String? = null
-        var summary: String? = null
+        var mediaGroup: MediaGroup? = null
         var link: String? = null
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.eventType != XmlPullParser.START_TAG) {
                 continue
             }
             when (parser.name) {
-                "title" -> title = readTitle(parser)
-                "summary" -> summary = readSummary(parser)
+                "title" -> title = readInnerText(parser, "title")
+                "media:group" -> mediaGroup = readMediaGroup(parser)
                 "link" -> link = readLink(parser)
                 else -> skip(parser)
             }
         }
-        return Entry(title, summary, link)
+
+        title ?: return null
+        mediaGroup ?: return null
+        link ?: return null
+
+        return Entry(title, mediaGroup, link)
     }
 
-    // Processes title tags in the feed.
-    @Throws(IOException::class, XmlPullParserException::class)
-    private fun readTitle(parser: XmlPullParser): String {
-        parser.require(XmlPullParser.START_TAG, ns, "title")
+    private fun readInnerText(parser: XmlPullParser, tagName: String): String {
+        parser.require(XmlPullParser.START_TAG, ns, tagName)
         val title = readText(parser)
-        parser.require(XmlPullParser.END_TAG, ns, "title")
+        parser.require(XmlPullParser.END_TAG, ns, tagName)
         return title
     }
 
-    // Processes link tags in the feed.
-    @Throws(IOException::class, XmlPullParserException::class)
     private fun readLink(parser: XmlPullParser): String {
         var link = ""
         parser.require(XmlPullParser.START_TAG, ns, "link")
@@ -110,17 +92,44 @@ class StreamInfoParser {
         return link
     }
 
-    // Processes summary tags in the feed.
-    @Throws(IOException::class, XmlPullParserException::class)
-    private fun readSummary(parser: XmlPullParser): String {
-        parser.require(XmlPullParser.START_TAG, ns, "summary")
-        val summary = readText(parser)
-        parser.require(XmlPullParser.END_TAG, ns, "summary")
-        return summary
+    private fun readMediaGroup(parser: XmlPullParser): MediaGroup? {
+        parser.require(XmlPullParser.START_TAG, ns, "media:group")
+
+        var title: String? = null
+        var thumbnail: String? = null
+        var description: String? = null
+
+        while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.eventType != XmlPullParser.START_TAG) {
+                continue
+            }
+            when (parser.name) {
+                "media:title" -> title = readInnerText(parser, "media:title")
+                "media:thumbnail" -> thumbnail = readThumbnail(parser)
+                "media:description" -> description = readInnerText(parser, "media:description")
+                else -> skip(parser)
+            }
+        }
+
+        title ?: return null
+        thumbnail ?: return null
+        description ?: return null
+
+        return MediaGroup(title, thumbnail, description)
     }
 
-    // For the tags title and summary, extracts their text values.
-    @Throws(IOException::class, XmlPullParserException::class)
+    private fun readThumbnail(parser: XmlPullParser): String {
+        for (index in 0 until parser.attributeCount) {
+
+            if ("url" == parser.getAttributeName(index)) {
+                val thumbnail = parser.getAttributeValue(index)
+                parser.nextTag()
+                return thumbnail
+            }
+        }
+        return ""
+    }
+
     private fun readText(parser: XmlPullParser): String {
         var result = ""
         if (parser.next() == XmlPullParser.TEXT) {
@@ -143,6 +152,8 @@ class StreamInfoParser {
         }
     }
 
-    data class Entry(val title: String?, val summary: String?, val link: String?)
+    data class Entry(val title: String, val mediaGroup: MediaGroup, val link: String?)
+
+    data class MediaGroup(val title: String, val thumbnail: String, val description: String)
 }
 
