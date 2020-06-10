@@ -2,10 +2,15 @@ package com.example.holodex.di
 
 import android.content.Context
 import com.example.holodex.App
+import com.example.holodex.detail.HoloLiveDetailViewModelModule
 import com.example.holodex.list.HoloLiveListViewModelModule
 import com.example.holodex.repository.HoloLiveRepository
 import com.example.holodex.repository.RemoteHoloLiveRepository
+import com.example.holodex.repository.StreamRepository
+import com.example.holodex.repository.StreamRepositoryImpl
 import com.example.holodex.repository.api.HololiveAPIService
+import com.example.holodex.repository.api.StreamInfoService
+import com.example.holodex.repository.api.StreamInfoServiceImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.BindsInstance
@@ -24,6 +29,7 @@ import javax.inject.Singleton
     modules = [
         ViewModelBuilder::class,
         HoloLiveListViewModelModule::class,
+        HoloLiveDetailViewModelModule::class,
         AppModule::class,
         AndroidSupportInjectionModule::class
     ]
@@ -47,20 +53,35 @@ object AppModule {
         return RemoteHoloLiveRepository(applicationContext, hololiveAPIService)
     }
 
+    @Provides
+    fun provideStreamInfoService(okhttp: OkHttpClient): StreamInfoService {
+        return StreamInfoServiceImpl(okhttp)
+    }
+
+    @Provides
+    fun provideStreamRepository(streamRepositoryImpl: StreamRepositoryImpl): StreamRepository {
+        return streamRepositoryImpl
+    }
+
 //    @Provides
 //    fun provideHoloLiverRepository(applicationContext: Context): HoloLiverRepository {
 //        return HoloLiverRepositoryImpl(applicationContext)
 //    }
 
     @Provides
-    fun provideHoloLiverAPI(): HololiveAPIService {
+    fun provideHttpClient(): OkHttpClient {
+        val okhttp = OkHttpClient
+            .Builder()
+            .build()
+
+        return okhttp
+    }
+
+    @Provides
+    fun provideHoloLiverAPI(okhttp: OkHttpClient): HololiveAPIService {
 
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
-            .build()
-
-        val okhttp = OkHttpClient
-            .Builder()
             .build()
 
         val retrofit = Retrofit.Builder()

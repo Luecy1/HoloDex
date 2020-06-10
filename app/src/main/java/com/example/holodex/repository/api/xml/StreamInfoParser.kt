@@ -1,19 +1,18 @@
 package com.example.holodex.repository.api.xml
 
-import android.content.Context
 import android.util.Xml
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
+import java.io.InputStream
 
 class StreamInfoParser {
 
     private val ns: String? = null
 
-    fun parse(context: Context): List<*> {
+    fun parse(inputStream: InputStream): Feed {
         try {
-            // get view-source:https://www.youtube.com/feeds/videos.xml?channel_id=UCZlDXzGoo7d44bwdNObFacg
-            context.assets.open("amane_kanata.xml").use { inputStream ->
+            inputStream.use { inputStream ->
                 val parser: XmlPullParser = Xml.newPullParser()
                 parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
                 parser.setInput(inputStream, null)
@@ -27,7 +26,7 @@ class StreamInfoParser {
         }
     }
 
-    private fun readFeed(parser: XmlPullParser): List<Entry> {
+    private fun readFeed(parser: XmlPullParser): Feed {
         val entries = mutableListOf<Entry>()
 
         parser.require(XmlPullParser.START_TAG, ns, "feed")
@@ -43,7 +42,7 @@ class StreamInfoParser {
                 skip(parser)
             }
         }
-        return entries
+        return Feed(entries)
     }
 
     private fun readEntry(parser: XmlPullParser): Entry? {
@@ -152,8 +151,10 @@ class StreamInfoParser {
         }
     }
 
-    data class Entry(val title: String, val mediaGroup: MediaGroup, val link: String?)
-
-    data class MediaGroup(val title: String, val thumbnail: String, val description: String)
 }
 
+data class Feed(val entryList: List<Entry>)
+
+data class Entry(val title: String, val mediaGroup: MediaGroup, val link: String?)
+
+data class MediaGroup(val title: String, val thumbnail: String, val description: String)
