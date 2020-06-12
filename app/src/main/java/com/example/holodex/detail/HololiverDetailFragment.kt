@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import coil.api.load
 import com.example.holodex.databinding.FragmentHololiverDetailBinding
 import com.example.holodex.di.ViewModelBuilder
 import com.example.holodex.di.ViewModelKey
@@ -35,12 +36,15 @@ class HololiverDetailFragment : DaggerFragment() {
 
         binding = FragmentHololiverDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.image.load("https://pbs.twimg.com/profile_images/1263309015661965313/E34lYRNA_400x400.jpg")
 
         val adapter = StreamInfoAdapter(requireContext())
         binding.streamInfoDetail.adapter = adapter

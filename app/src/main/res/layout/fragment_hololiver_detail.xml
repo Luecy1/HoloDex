@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.holodex.detail.HololiverDetailViewModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
@@ -28,8 +37,7 @@
                     android:id="@+id/image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/dummy_400x400"
-                    tools:layout_editor_absoluteX="147dp" />
+                    android:src="@drawable/dummy_400x400" />
 
                 <TextView
                     android:id="@+id/label"
@@ -101,8 +109,10 @@
                     android:id="@+id/stream_info_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:minHeight="300dp"
                     android:layout_marginTop="8dp"
                     android:overScrollMode="never"
+                    android:visibility="@{viewModel.streamLoading ? View.INVISIBLE : View.VISIBLE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_end"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -110,6 +120,18 @@
                     app:layout_constraintTop_toBottomOf="@id/stream_info"
                     tools:itemCount="3"
                     tools:listitem="@layout/stream_info_item" />
+
+                <ProgressBar
+                    android:id="@+id/stream_info_progress"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="@{viewModel.streamLoading ? View.VISIBLE : View.GONE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="@+id/stream_info_detail"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                    app:layout_constraintStart_toStartOf="@id/guideline_begin"
+                    app:layout_constraintTop_toBottomOf="@id/stream_info" />
 
                 <TextView
                     android:id="@+id/fan_art"

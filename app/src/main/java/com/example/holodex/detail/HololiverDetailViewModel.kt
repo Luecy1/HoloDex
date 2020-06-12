@@ -16,8 +16,13 @@ class HololiverDetailViewModel @Inject constructor(
     private val _streamLiveData = MutableLiveData<List<StreamItem>>()
     val streamLiveData: LiveData<List<StreamItem>> = _streamLiveData
 
+    private val _streamLoading = MutableLiveData(false)
+    val streamLoading: LiveData<Boolean> = _streamLoading
+
     fun initData() {
         viewModelScope.launch {
+            _streamLoading.value = true
+
             val result = repository.getStreamInfoList()
 
             when (result) {
@@ -25,6 +30,8 @@ class HololiverDetailViewModel @Inject constructor(
                     _streamLiveData.postValue(result.data)
                 }
             }
+
+            _streamLoading.postValue(false)
         }
     }
 }
