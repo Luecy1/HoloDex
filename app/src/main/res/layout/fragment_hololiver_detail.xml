@@ -47,6 +47,13 @@
                     android:textColor="#FFF"
                     android:textSize="32dp" />
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_folding_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_end="50dp" />
+
             </com.example.holodex.parts.CollapsibleToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
