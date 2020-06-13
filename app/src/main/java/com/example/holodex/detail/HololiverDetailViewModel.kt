@@ -1,13 +1,18 @@
 package com.example.holodex.detail
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.holodex.data.Result
 import com.example.holodex.repository.StreamRepository
+import com.example.holodex.repository.api.TwitterService
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HololiverDetailViewModel @Inject constructor(
-    private val repository: StreamRepository
+    private val streamRepository: StreamRepository,
+    private val twitterService: TwitterService
 ) : ViewModel() {
 
     private val _streamLiveData = MutableLiveData<List<StreamItem>>()
@@ -16,27 +21,14 @@ class HololiverDetailViewModel @Inject constructor(
     private val _streamLoading = MutableLiveData(false)
     val streamLoading: LiveData<Boolean> = _streamLoading
 
-    val fanartLiveData: LiveData<List<FanArtItem>> = liveData {
-
-        val artList = (1..3).map {
-            FanArtItem(
-                0L,
-                "https://pbs.twimg.com/profile_images/1263309015661965313/E34lYRNA_400x400.jpg",
-                "",
-                "",
-                "body $it",
-                "https://pbs.twimg.com/profile_images/1263309015661965313/E34lYRNA_400x400.jpg"
-            )
-        }
-
-        emit(artList)
-    }
+    private val _fanArtLiveData = MutableLiveData<List<FanArtItem>>()
+    val fanArtLiveData: LiveData<List<FanArtItem>> = _fanArtLiveData
 
     fun initData() {
         viewModelScope.launch {
             _streamLoading.postValue(true)
 
-            val result = repository.getStreamInfoList()
+            val result = streamRepository.getStreamInfoList()
 
             when (result) {
                 is Result.Success<List<StreamItem>> -> {
@@ -45,6 +37,21 @@ class HololiverDetailViewModel @Inject constructor(
             }
 
             _streamLoading.postValue(false)
+
+            val fanArtList = twitterService.searchStatusWithImage().map {
+                val user = it.user
+                val media = it.mediaEntities.first()
+                FanArtItem(
+                    it.id,
+                    user.profileImageURLHttps,
+                    user.name,
+                    user.screenName,
+                    it.text,
+                    media.mediaURLHttps
+                )
+            }
+
+            _fanArtLiveData.postValue(fanArtList)
         }
     }
 }

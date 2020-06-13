@@ -8,9 +8,9 @@ import com.example.holodex.repository.HoloLiveRepository
 import com.example.holodex.repository.RemoteHoloLiveRepository
 import com.example.holodex.repository.StreamRepository
 import com.example.holodex.repository.StreamRepositoryImpl
-import com.example.holodex.repository.api.HololiveAPIService
-import com.example.holodex.repository.api.StreamInfoService
-import com.example.holodex.repository.api.StreamInfoServiceImpl
+import com.example.holodex.repository.api.*
+import com.example.holodex.repository.preference.PreferenceService
+import com.example.holodex.repository.preference.PreferenceServiceImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.BindsInstance
@@ -22,6 +22,9 @@ import dagger.android.support.AndroidSupportInjectionModule
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import twitter4j.Twitter
+import twitter4j.TwitterFactory
+import twitter4j.conf.ConfigurationBuilder
 import javax.inject.Singleton
 
 @Singleton
@@ -63,11 +66,6 @@ object AppModule {
         return streamRepositoryImpl
     }
 
-//    @Provides
-//    fun provideHoloLiverRepository(applicationContext: Context): HoloLiverRepository {
-//        return HoloLiverRepositoryImpl(applicationContext)
-//    }
-
     @Provides
     fun provideHttpClient(): OkHttpClient {
         val okhttp = OkHttpClient
@@ -91,5 +89,34 @@ object AppModule {
             .build()
 
         return retrofit.create(HololiveAPIService::class.java)
+    }
+
+    @Provides
+    fun provideTwitterInstance(
+        preferenceService: PreferenceService
+    ): Twitter {
+
+        val accessToken = preferenceService.getString("accessToken")
+
+        // setting for application-only authentication
+        val conf = ConfigurationBuilder()
+            .setApplicationOnlyAuthEnabled(true)
+            .setOAuth2AccessToken(accessToken)
+            .build()
+
+        return TwitterFactory(conf).instance
+    }
+
+    @Provides
+    fun provideTwitterService(
+        twitter: Twitter,
+        preferenceService: PreferenceService
+    ): TwitterService {
+        return TwitterServiceImpl(twitter, preferenceService)
+    }
+
+    @Provides
+    fun provideSharedPreference(sharedPreferences: PreferenceServiceImpl): PreferenceService {
+        return sharedPreferences
     }
 }

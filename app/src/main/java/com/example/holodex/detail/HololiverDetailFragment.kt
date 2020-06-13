@@ -56,7 +56,7 @@ class HololiverDetailFragment : DaggerFragment() {
         val fanArtAdapter = FanArtAdapter()
         binding.fanArtList.adapter = fanArtAdapter
 
-        viewModel.fanartLiveData.observe(viewLifecycleOwner, Observer { fanArtList ->
+        viewModel.fanArtLiveData.observe(viewLifecycleOwner, Observer { fanArtList ->
             fanArtAdapter.submitList(fanArtList)
         })
 

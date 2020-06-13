@@ -72,14 +72,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="20dp" />
+                    app:layout_constraintGuide_begin="16dp" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_end="20dp" />
+                    app:layout_constraintGuide_end="16dp" />
 
                 <TextView
                     android:id="@+id/basic_info"
@@ -96,6 +96,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:text="誕生日:4/22\n身長142cm\nファンネーム：へい民\nイラストレーター：おしおしお"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_end"
@@ -144,7 +146,7 @@
                     android:id="@+id/go_to_youtube"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Youtube　チャンネルへ"
+                    android:text="Youtubeチャンネルへ"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_end"
                     app:layout_constraintTop_toBottomOf="@id/stream_info_detail" />
