@@ -21,7 +21,7 @@ class HololiverDetailViewModel @Inject constructor(
 
     fun initData() {
         viewModelScope.launch {
-            _streamLoading.value = true
+            _streamLoading.postValue(true)
 
             val result = repository.getStreamInfoList()
 

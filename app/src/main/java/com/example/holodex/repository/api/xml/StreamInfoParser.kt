@@ -12,10 +12,10 @@ class StreamInfoParser {
 
     fun parse(inputStream: InputStream): Feed {
         try {
-            inputStream.use { inputStream ->
+            inputStream.use {
                 val parser: XmlPullParser = Xml.newPullParser()
                 parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
-                parser.setInput(inputStream, null)
+                parser.setInput(it, null)
                 parser.nextTag()
                 return readFeed(parser)
             }

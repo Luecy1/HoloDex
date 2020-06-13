@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.holodex.databinding.StreamInfoItemBinding
+import com.example.holodex.databinding.ItemStreamInfoBinding
 
 
 class StreamInfoAdapter(context: Context) :
@@ -15,7 +15,7 @@ class StreamInfoAdapter(context: Context) :
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = StreamInfoItemBinding.inflate(inflater, parent, false)
+        val binding = ItemStreamInfoBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -28,7 +28,7 @@ class StreamInfoAdapter(context: Context) :
     }
 
     inner class ViewHolder(
-        val binding: StreamInfoItemBinding
+        val binding: ItemStreamInfoBinding
     ) : RecyclerView.ViewHolder(binding.root)
 
     class ItemCallback : DiffUtil.ItemCallback<StreamItem>() {
