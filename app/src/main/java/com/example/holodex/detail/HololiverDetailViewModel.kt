@@ -21,11 +21,11 @@ class HololiverDetailViewModel @Inject constructor(
         val artList = (1..3).map {
             FanArtItem(
                 0L,
-                "",
+                "https://pbs.twimg.com/profile_images/1263309015661965313/E34lYRNA_400x400.jpg",
                 "",
                 "",
                 "body $it",
-                ""
+                "https://pbs.twimg.com/profile_images/1263309015661965313/E34lYRNA_400x400.jpg"
             )
         }
 
