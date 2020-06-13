@@ -19,6 +19,9 @@ jobs:
         java-version: 1.8
     - name: generateAPK
       run: ./gradlew assembleDebug
+      env:
+        OAUTH_CONSUMERKEY: ${{ secrets.OAUTH_CONSUMERKEY }}
+        OAUTH_CONSUMERSECRET: ${{ secrets.OAUTH_CONSUMERSECRET }}
     - name: Distribute App
       run: |
        curl \
