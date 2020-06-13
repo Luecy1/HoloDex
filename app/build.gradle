@@ -21,8 +21,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'boolean', 'isCi', isCi ?: 'false'
-        buildConfigField 'String', 'consumerKey', consumerKey ?: "\"\""
-        buildConfigField 'String', 'consumerSecret', consumerSecret ?: "\"\""
+        buildConfigField 'String', 'consumerKey', "\"$consumerKey\"" ?: "\"\""
+        buildConfigField 'String', 'consumerSecret', "\"$consumerSecret\"" ?: "\"\""
     }
 
     buildTypes {
