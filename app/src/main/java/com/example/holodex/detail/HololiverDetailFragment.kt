@@ -46,22 +46,19 @@ class HololiverDetailFragment : DaggerFragment() {
 
         binding.image.load("https://pbs.twimg.com/profile_images/1263309015661965313/E34lYRNA_400x400.jpg")
 
-        val adapter = StreamInfoAdapter(requireContext())
-        binding.streamInfoDetail.adapter = adapter
+        val streamInfoAdapter = StreamInfoAdapter(requireContext())
+        binding.streamInfoDetail.adapter = streamInfoAdapter
 
         viewModel.streamLiveData.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+            streamInfoAdapter.submitList(it)
         })
 
-//        val list = (1..3).map {
-//            StreamItem(
-//                "title$it",
-//                "description",
-//                "url"
-//            )
-//        }
-//
-//        adapter.submitList(list)
+        val fanArtAdapter = FanArtAdapter()
+        binding.fanArtList.adapter = fanArtAdapter
+
+        viewModel.fanartLiveData.observe(viewLifecycleOwner, Observer { fanArtList ->
+            fanArtAdapter.submitList(fanArtList)
+        })
 
         viewModel.initData()
     }

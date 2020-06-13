@@ -1,91 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="fanArtItem"
+            type="com.example.holodex.detail.FanArtItem" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/amane_kanata" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintEnd_toStartOf="@+id/logo_twitter"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/avatar"
-            app:layout_constraintTop_toTopOf="@+id/avatar"
-            tools:text="天音かなた💫" />
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/amane_kanata" />
 
-        <TextView
-            android:id="@+id/screen_name"
-            android:layout_width="271dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:text="\@amanekanatach" />
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{fanArtItem.name}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintEnd_toStartOf="@+id/logo_twitter"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/avatar"
+                app:layout_constraintTop_toTopOf="@+id/avatar"
+                tools:text="天音かなた" />
 
-        <ImageView
-            android:id="@+id/logo_twitter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_twitter_logo_blue" />
+            <TextView
+                android:id="@+id/screen_name"
+                android:layout_width="271dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layout_constraintEnd_toEndOf="@+id/name"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                tools:text="\@amanekanatach" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintEnd_toEndOf="@+id/logo_twitter"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/avatar"
-            app:layout_constraintTop_toBottomOf="@+id/avatar"
-            tools:text="Twitter本文" />
+            <ImageView
+                android:id="@+id/logo_twitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_twitter_logo_blue" />
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:srcCompat="@drawable/amane_kanata" />
+            <TextView
+                android:id="@+id/body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{fanArtItem.body}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintEnd_toEndOf="@+id/logo_twitter"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/avatar"
+                app:layout_constraintTop_toBottomOf="@+id/avatar"
+                tools:text="Twitter本文" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="twitter.com"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <ImageView
+                android:id="@+id/art"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/body"
+                app:srcCompat="@drawable/amane_kanata" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="twitter.com"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
