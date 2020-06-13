@@ -2,6 +2,7 @@ package com.example.holodex.di
 
 import android.content.Context
 import com.example.holodex.App
+import com.example.holodex.BuildConfig
 import com.example.holodex.detail.HoloLiveDetailViewModelModule
 import com.example.holodex.list.HoloLiveListViewModelModule
 import com.example.holodex.repository.HoloLiveRepository
@@ -98,11 +99,32 @@ object AppModule {
 
         val accessToken = preferenceService.getString("accessToken")
 
-        // setting for application-only authentication
-        val conf = ConfigurationBuilder()
-            .setApplicationOnlyAuthEnabled(true)
-            .setOAuth2AccessToken(accessToken)
-            .build()
+        @Suppress("ConstantConditionIf")
+        val conf = if (BuildConfig.isCi.not()) {
+            // for local env
+
+            // setting for application-only authentication
+            val conf = ConfigurationBuilder()
+                .setApplicationOnlyAuthEnabled(true)
+                .setOAuth2AccessToken(accessToken)
+                .build()
+
+            conf
+        } else {
+            // for github action env
+
+            val consumerKey = BuildConfig.consumerKey
+            val consumerSecret = BuildConfig.consumerSecret
+
+            val conf = ConfigurationBuilder()
+                .setApplicationOnlyAuthEnabled(true)
+                .setOAuth2AccessToken(accessToken)
+                .setOAuthConsumerKey(consumerKey)
+                .setOAuthConsumerSecret(consumerSecret)
+                .build()
+
+            conf
+        }
 
         return TwitterFactory(conf).instance
     }
