@@ -16,6 +16,9 @@ class HololiveListViewModel @Inject constructor(
     private val _openHololiver = MutableLiveData<Event<String>>()
     val openHololiver: LiveData<Event<String>> = _openHololiver
 
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
     val hololiveList = liveData {
         emit(repository.getHoloLiveList())
     }

@@ -8,6 +8,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import timber.log.Timber
 import javax.inject.Inject
 
 class StreamInfoServiceImpl @Inject constructor(
@@ -19,25 +20,30 @@ class StreamInfoServiceImpl @Inject constructor(
     override suspend fun fetchStreamInfo(channelId: String): Result<Feed> =
         withContext(Dispatchers.IO) {
 
-            val urlBuilder = "https://www.youtube.com/feeds/videos.xml".toHttpUrlOrNull()?.let {
-                it.newBuilder()
-            } ?: throw IllegalStateException(" ")
+            try {
+                val urlBuilder = "https://www.youtube.com/feeds/videos.xml".toHttpUrlOrNull()?.let {
+                    it.newBuilder()
+                } ?: throw IllegalStateException(" ")
 
-            val url = urlBuilder
-                .addQueryParameter("channel_id", channelId)
-                .build()
+                val url = urlBuilder
+                    .addQueryParameter("channel_id", channelId)
+                    .build()
 
-            val request = Request.Builder()
-                .url(url)
-                .get()
-                .build()
+                val request = Request.Builder()
+                    .url(url)
+                    .get()
+                    .build()
 
-            val response = client.newCall(request).execute()
+                val response = client.newCall(request).execute()
 
-            val inputStream = response.body?.byteStream()!!
+                val inputStream = response.body?.byteStream()!!
 
-            val feedList = parser.parse(inputStream)
+                val feedList = parser.parse(inputStream)
 
-            Result.Success(feedList)
+                Result.Success(feedList)
+            } catch (e: Exception) {
+                Timber.w(e)
+                Result.Error(e)
+            }
         }
 }

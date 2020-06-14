@@ -1,5 +1,6 @@
 package com.github.luecy1.holodex.repository.api
 
+import com.github.luecy1.holodex.data.Result
 import com.github.luecy1.holodex.repository.preference.PreferenceService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,12 +15,17 @@ class TwitterServiceImpl(
 
     var firstFlg = true
 
-    override suspend fun searchStatusWithImage(): List<Status> = withContext(Dispatchers.IO) {
-        checkFirstAccess()
+    override suspend fun searchStatusWithImage(): Result<List<Status>> =
+        withContext(Dispatchers.IO) {
+            try {
+                checkFirstAccess()
 
-        val queryResult = twitter.search(Query("#かなたーと -filter:retweets"))
-        queryResult.tweets
-    }
+                val queryResult = twitter.search(Query("#かなたーと -filter:retweets"))
+                Result.Success(queryResult.tweets)
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
 
     private fun checkFirstAccess() {
         if (firstFlg.not()) return

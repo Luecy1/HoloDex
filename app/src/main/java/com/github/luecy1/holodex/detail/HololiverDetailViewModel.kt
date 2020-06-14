@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.github.luecy1.holodex.data.Result
 import com.github.luecy1.holodex.repository.StreamRepository
 import com.github.luecy1.holodex.repository.api.TwitterService
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import twitter4j.Status
 import javax.inject.Inject
 
 class HololiverDetailViewModel @Inject constructor(
@@ -28,30 +30,34 @@ class HololiverDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _streamLoading.postValue(true)
 
-            val result = streamRepository.getStreamInfoList()
+            val streamInfoDeferred = async { streamRepository.getStreamInfoList() }
+            val statusListDeferred = async { twitterService.searchStatusWithImage() }
 
-            when (result) {
+            when (val streamInfoResult = streamInfoDeferred.await()) {
                 is Result.Success<List<StreamItem>> -> {
-                    _streamLiveData.postValue(result.data)
+                    _streamLiveData.postValue(streamInfoResult.data)
                 }
             }
 
             _streamLoading.postValue(false)
 
-            val fanArtList = twitterService.searchStatusWithImage().map {
-                val user = it.user
-                val media = it.mediaEntities.firstOrNull()
-                FanArtItem(
-                    it.id,
-                    user.profileImageURLHttps,
-                    user.name,
-                    user.screenName,
-                    it.text,
-                    media?.mediaURLHttps ?: ""
-                )
+            when (val statusListResult = statusListDeferred.await()) {
+                is Result.Success<List<Status>> -> {
+                    val fanArtList = statusListResult.data.map {
+                        val user = it.user
+                        val media = it.mediaEntities.firstOrNull()
+                        FanArtItem(
+                            it.id,
+                            user.profileImageURLHttps,
+                            user.name,
+                            user.screenName,
+                            it.text,
+                            media?.mediaURLHttps ?: ""
+                        )
+                    }
+                    _fanArtLiveData.postValue(fanArtList)
+                }
             }
-
-            _fanArtLiveData.postValue(fanArtList)
         }
     }
 }
