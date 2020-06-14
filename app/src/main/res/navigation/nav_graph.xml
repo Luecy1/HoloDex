@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/itemFragment"
-        android:name="com.example.holodex.list.HololiveListFragment"
+        android:name="com.github.luecy1.holodex.list.HololiveListFragment"
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_item_list">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/hololiverDetailFragment"
-        android:name="com.example.holodex.detail.HololiverDetailFragment"
+        android:name="com.github.luecy1.holodex.detail.HololiverDetailFragment"
         android:label="fragment_hololiver_detail"
         tools:layout="@layout/fragment_hololiver_detail">
         <argument

@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.holodex.detail.HololiverDetailViewModel" />
+            type="com.github.luecy1.holodex.detail.HololiverDetailViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -24,7 +24,7 @@
             android:layout_height="180dp"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <com.example.holodex.parts.CollapsibleToolbar
+            <com.github.luecy1.holodex.parts.CollapsibleToolbar
                 android:id="@+id/motionLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -54,7 +54,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintGuide_end="50dp" />
 
-            </com.example.holodex.parts.CollapsibleToolbar>
+            </com.github.luecy1.holodex.parts.CollapsibleToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView

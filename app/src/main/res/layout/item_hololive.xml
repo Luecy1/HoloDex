@@ -6,11 +6,11 @@
 
         <variable
             name="item"
-            type="com.example.holodex.data.HololiverItem" />
+            type="com.github.luecy1.holodex.data.HololiverItem" />
 
         <variable
             name="viewModel"
-            type="com.example.holodex.list.HololiveListViewModel" />
+            type="com.github.luecy1.holodex.list.HololiveListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
