@@ -11,11 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.luecy1.holodex.EventObserver
-import com.github.luecy1.holodex.data.GenerationItem
-import com.github.luecy1.holodex.data.Result
 import com.github.luecy1.holodex.databinding.FragmentItemListBinding
 import com.github.luecy1.holodex.di.ViewModelBuilder
 import com.github.luecy1.holodex.di.ViewModelKey
+import com.google.android.material.snackbar.Snackbar
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -37,12 +36,12 @@ class HololiveListFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentItemListBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         val adapter = GenerationItemAdapter(view.context, viewModel)
 
@@ -53,12 +52,11 @@ class HololiveListFragment : DaggerFragment() {
         binding.recyclerView.adapter = adapter
 
         viewModel.hololiveList.observe(viewLifecycleOwner, Observer { generationList ->
+            adapter.submitList(generationList)
+        })
 
-            when (generationList) {
-                is Result.Success<List<GenerationItem>> -> {
-                    adapter.submitList(generationList.data)
-                }
-            }
+        viewModel.errorMessage.observe(viewLifecycleOwner, Observer { resId ->
+            Snackbar.make(view, resId, Snackbar.LENGTH_SHORT).show()
         })
 
         viewModel.openHololiver.observe(viewLifecycleOwner, EventObserver {
@@ -66,6 +64,8 @@ class HololiveListFragment : DaggerFragment() {
                 HololiveListFragmentDirections.actionItemFragmentToHololiverDetailFragment(it)
             findNavController().navigate(action)
         })
+
+        viewModel.initData()
     }
 }
 

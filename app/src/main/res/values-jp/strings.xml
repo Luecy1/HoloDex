@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ホロライブずかん</string>
+    <string name="error_message">データの取得に失敗しました</string>
+</resources>
