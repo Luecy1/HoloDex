@@ -16,7 +16,8 @@ import com.example.holodex.databinding.ItemGenerationBinding
 
 
 class GenerationItemAdapter(
-    private val context: Context
+    private val context: Context,
+    private val viewModel: HololiveListViewModel
 ) :
     ListAdapter<GenerationItem, GenerationItemAdapter.ViewHolder>(ItemCallback()) {
 
@@ -41,7 +42,7 @@ class GenerationItemAdapter(
         holder.generationText.text = generation.name
 
         val adapter = adapterCache.getOrPut(generation.name) {
-            HololiveMemberItemAdapter(context).apply {
+            HololiveMemberItemAdapter(context, viewModel).apply {
                 submitList(generation.hololiverList)
             }
         }

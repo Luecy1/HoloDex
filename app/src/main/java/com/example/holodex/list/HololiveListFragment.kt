@@ -8,7 +8,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.holodex.EventObserver
 import com.example.holodex.data.GenerationItem
 import com.example.holodex.data.Result
 import com.example.holodex.databinding.FragmentItemListBinding
@@ -35,13 +37,14 @@ class HololiveListFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentItemListBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = GenerationItemAdapter(view.context)
+        val adapter = GenerationItemAdapter(view.context, viewModel)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(view.context).apply {
             orientation = LinearLayoutManager.VERTICAL
@@ -56,6 +59,12 @@ class HololiveListFragment : DaggerFragment() {
                     adapter.submitList(generationList.data)
                 }
             }
+        })
+
+        viewModel.openHololiver.observe(viewLifecycleOwner, EventObserver {
+            val action =
+                HololiveListFragmentDirections.actionItemFragmentToHololiverDetailFragment(it)
+            findNavController().navigate(action)
         })
     }
 }

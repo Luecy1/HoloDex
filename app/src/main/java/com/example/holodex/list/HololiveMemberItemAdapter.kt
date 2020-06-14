@@ -3,8 +3,6 @@ package com.example.holodex.list
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +12,10 @@ import com.example.holodex.R
 import com.example.holodex.data.HololiverItem
 import com.example.holodex.databinding.ItemHololiveBinding
 
-class HololiveMemberItemAdapter(context: Context) :
+class HololiveMemberItemAdapter(
+    context: Context,
+    private val viewModel: HololiveListViewModel
+) :
     ListAdapter<HololiverItem, HololiveMemberItemAdapter.ViewHolder>(ItemCallback()) {
 
     private val inflater = LayoutInflater.from(context)
@@ -28,16 +29,19 @@ class HololiveMemberItemAdapter(context: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.mContentView.text = item.name
-        holder.mIdView.load(item.imageUrl) {
-            transformations(RoundedCornersTransformation(topLeft = round, topRight = round))
-        }
+        holder.onBind(item, viewModel)
     }
 
-    inner class ViewHolder(binding: ItemHololiveBinding) :
+    inner class ViewHolder(val binding: ItemHololiveBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val mIdView: ImageView = binding.liverImage
-        val mContentView: TextView = binding.content
+
+        fun onBind(item: HololiverItem, viewModel: HololiveListViewModel) {
+            binding.item = item
+            binding.liverImage.load(item.imageUrl) {
+                transformations(RoundedCornersTransformation(topLeft = round, topRight = round))
+            }
+            binding.viewModel = viewModel
+        }
     }
 
     class ItemCallback : DiffUtil.ItemCallback<HololiverItem>() {

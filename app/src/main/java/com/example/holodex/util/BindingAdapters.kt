@@ -6,7 +6,9 @@ import coil.api.load
 
 @BindingAdapter("imageURL")
 fun ImageView.imageURI(uri: String) {
-    this.load(uri)
+    if (uri.isNotBlank()) {
+        this.load(uri)
+    }
 }
 
 //@BindingAdapter("link")

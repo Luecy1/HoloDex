@@ -2,9 +2,21 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.holodex.data.HololiverItem" />
+
+        <variable
+            name="viewModel"
+            type="com.example.holodex.list.HololiveListViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.onClickHololiver(item)}"
         android:orientation="vertical">
 
         <ImageView
@@ -25,6 +37,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/shape_rounded_bottom"
             android:gravity="center_horizontal"
+            android:text="@{item.name}"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="#FFFFFFFF"
             app:layout_constraintEnd_toEndOf="@+id/liver_image"
