@@ -14,8 +14,15 @@ class RemoteHoloLiveRepository constructor(
     private val hololiveService: HololiveAPIService
 ) : HoloLiveRepository {
 
-    override suspend fun getHoloLiveList(): Result<List<GenerationItem>> =
-        withContext(Dispatchers.IO) {
+    var cache: Result<List<GenerationItem>>? = null
+
+    override suspend fun getHoloLiveList(): Result<List<GenerationItem>> {
+
+        cache?.let {
+            return it
+        }
+
+        return withContext(Dispatchers.IO) {
 
             val generationIds = context.assets.open("HoloLiveGeneration.csv").bufferedReader()
                 .readLines()
@@ -46,11 +53,13 @@ class RemoteHoloLiveRepository constructor(
                     )
                 }
 
-                return@withContext Result.Success(generationList)
+                return@withContext Result.Success(generationList).also {
+                    cache = it
+                }
             } catch (e: Exception) {
                 Timber.e(e)
                 return@withContext Result.Error(e)
             }
-
         }
+    }
 }

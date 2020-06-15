@@ -49,6 +49,7 @@ interface AppComponent : AndroidInjector<App> {
 @Module
 object AppModule {
 
+    @Singleton
     @Provides
     fun provideHoloLiverRepository(
         applicationContext: Context,
@@ -62,11 +63,13 @@ object AppModule {
         return StreamInfoServiceImpl(okhttp)
     }
 
+    @Singleton
     @Provides
     fun provideStreamRepository(streamRepositoryImpl: StreamRepositoryImpl): StreamRepository {
         return streamRepositoryImpl
     }
 
+    @Singleton
     @Provides
     fun provideHttpClient(): OkHttpClient {
         val okhttp = OkHttpClient
@@ -76,6 +79,7 @@ object AppModule {
         return okhttp
     }
 
+    @Singleton
     @Provides
     fun provideHoloLiverAPI(okhttp: OkHttpClient): HololiveAPIService {
 
@@ -92,6 +96,7 @@ object AppModule {
         return retrofit.create(HololiveAPIService::class.java)
     }
 
+    @Singleton
     @Provides
     fun provideTwitterInstance(
         preferenceService: PreferenceService
@@ -129,6 +134,7 @@ object AppModule {
         return TwitterFactory(conf).instance
     }
 
+    @Singleton
     @Provides
     fun provideTwitterService(
         twitter: Twitter,
