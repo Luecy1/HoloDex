@@ -12,13 +12,11 @@ class StreamInfoParser {
 
     fun parse(inputStream: InputStream): Feed {
         try {
-            inputStream.use {
-                val parser: XmlPullParser = Xml.newPullParser()
-                parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
-                parser.setInput(it, null)
-                parser.nextTag()
-                return readFeed(parser)
-            }
+            val parser: XmlPullParser = Xml.newPullParser()
+            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
+            parser.setInput(inputStream, null)
+            parser.nextTag()
+            return readFeed(parser)
         } catch (e: IOException) {
             throw RuntimeException(e)
         } catch (e: XmlPullParserException) {
@@ -152,9 +150,3 @@ class StreamInfoParser {
     }
 
 }
-
-data class Feed(val entryList: List<Entry>)
-
-data class Entry(val title: String, val mediaGroup: MediaGroup, val link: String?)
-
-data class MediaGroup(val title: String, val thumbnail: String, val description: String)

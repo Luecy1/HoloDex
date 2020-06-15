@@ -21,9 +21,9 @@ class StreamInfoServiceImpl @Inject constructor(
         withContext(Dispatchers.IO) {
 
             try {
-                val urlBuilder = "https://www.youtube.com/feeds/videos.xml".toHttpUrlOrNull()?.let {
-                    it.newBuilder()
-                } ?: throw IllegalStateException(" ")
+                val urlBase = "https://www.youtube.com/feeds/videos.xml"
+                val urlBuilder = urlBase.toHttpUrlOrNull()?.newBuilder()
+                    ?: throw IllegalStateException("parse error $urlBase")
 
                 val url = urlBuilder
                     .addQueryParameter("channel_id", channelId)
@@ -36,9 +36,9 @@ class StreamInfoServiceImpl @Inject constructor(
 
                 val response = client.newCall(request).execute()
 
-                val inputStream = response.body?.byteStream()!!
-
-                val feedList = parser.parse(inputStream)
+                val feedList = response.body?.byteStream()?.use {
+                    parser.parse(it)
+                } ?: throw IllegalStateException("Can not open InputStream")
 
                 Result.Success(feedList)
             } catch (e: Exception) {
