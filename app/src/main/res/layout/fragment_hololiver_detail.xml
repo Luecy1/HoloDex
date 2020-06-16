@@ -65,7 +65,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants">
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_begin"
@@ -121,6 +122,7 @@
                     android:minHeight="300dp"
                     android:layout_marginTop="8dp"
                     android:overScrollMode="never"
+                    android:focusable="false"
                     android:visibility="@{viewModel.streamLoading ? View.INVISIBLE : View.VISIBLE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_end"
@@ -168,6 +170,7 @@
                     android:layout_marginTop="8dp"
                     android:minHeight="300dp"
                     android:overScrollMode="never"
+                    android:focusable="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_end"
                     app:layout_constraintHorizontal_bias="0.0"

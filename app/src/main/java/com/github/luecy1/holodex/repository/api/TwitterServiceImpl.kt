@@ -20,7 +20,7 @@ class TwitterServiceImpl(
             try {
                 checkFirstAccess()
 
-                val queryResult = twitter.search(Query("#かなたーと -filter:retweets"))
+                val queryResult = twitter.search(Query("#かなたーと -filter:retweets filter:images"))
                 Result.Success(queryResult.tweets)
             } catch (e: Exception) {
                 Result.Error(e)
