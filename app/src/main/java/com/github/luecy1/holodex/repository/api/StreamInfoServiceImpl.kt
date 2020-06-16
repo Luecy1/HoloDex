@@ -36,9 +36,9 @@ class StreamInfoServiceImpl @Inject constructor(
 
                 val response = client.newCall(request).execute()
 
-                val feedList = response.body?.byteStream()?.use {
-                    parser.parse(it)
-                } ?: throw IllegalStateException("Can not open InputStream")
+                val inputStream = response.body?.byteStream()!!
+
+                val feedList = parser.parse(inputStream)
 
                 Result.Success(feedList)
             } catch (e: Exception) {

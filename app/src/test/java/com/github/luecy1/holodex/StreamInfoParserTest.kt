@@ -3,12 +3,13 @@ package com.github.luecy1.holodex
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.luecy1.holodex.repository.api.xml.StreamInfoParser
 import com.google.common.truth.Truth.assertThat
+import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.annotation.Config
+import java.io.IOException
+import java.io.InputStream
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [28]) // API level 29 is not available
 class StreamInfoParserTest {
 
     private val parser = StreamInfoParser()
@@ -41,6 +42,21 @@ class StreamInfoParserTest {
                     "                ディスクリプション\n" +
                     "            "
         )
+    }
 
+    @Test
+    fun parseException() {
+        val throwIOException = object : InputStream() {
+            override fun read(): Int {
+                throw IOException()
+            }
+        }
+
+        try {
+            parser.parse(throwIOException)
+            fail()
+        } catch (e: Exception) {
+            assertThat(e).hasMessageThat().contains("xml parse")
+        }
     }
 }

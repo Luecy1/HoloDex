@@ -12,15 +12,17 @@ class StreamInfoParser {
 
     fun parse(inputStream: InputStream): Feed {
         try {
-            val parser: XmlPullParser = Xml.newPullParser()
-            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
-            parser.setInput(inputStream, null)
-            parser.nextTag()
-            return readFeed(parser)
+            inputStream.use {
+                val parser: XmlPullParser = Xml.newPullParser()
+                parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
+                parser.setInput(it, null)
+                parser.nextTag()
+                return readFeed(parser)
+            }
         } catch (e: IOException) {
-            throw RuntimeException(e)
+            throw XmlParseException("stream read error", e)
         } catch (e: XmlPullParserException) {
-            throw RuntimeException(e)
+            throw XmlParseException(" xml parse error ", e)
         }
     }
 
