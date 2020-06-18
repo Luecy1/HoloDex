@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_item_list">
         <action
             android:id="@+id/action_itemFragment_to_hololiverDetailFragment"
-            app:destination="@id/hololiverDetailFragment" />
+            app:destination="@id/hololiverDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/hololiverDetailFragment"
@@ -20,7 +22,7 @@
         android:label="fragment_hololiver_detail"
         tools:layout="@layout/fragment_hololiver_detail">
         <argument
-            android:name="hololiverName"
-            app:argType="string" />
+            android:name="hololiverItem"
+            app:argType="com.github.luecy1.holodex.data.HololiverItem" />
     </fragment>
 </navigation>

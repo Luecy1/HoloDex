@@ -17,8 +17,8 @@ class HololiveListViewModel @Inject constructor(
     private val repository: HoloLiveRepository
 ) : ViewModel() {
 
-    private val _openHololiver = MutableLiveData<Event<String>>()
-    val openHololiver: LiveData<Event<String>> = _openHololiver
+    private val _openHololiver = MutableLiveData<Event<HololiverItem>>()
+    val openHololiver: LiveData<Event<HololiverItem>> = _openHololiver
 
     private val _errorMessage = MutableLiveData<Int>()
     val errorMessage: LiveData<Int> = _errorMessage
@@ -40,6 +40,6 @@ class HololiveListViewModel @Inject constructor(
     }
 
     fun onClickHololiver(hololiverItem: HololiverItem) {
-        _openHololiver.postValue(Event(hololiverItem.id.toString()))
+        _openHololiver.postValue(Event(hololiverItem))
     }
 }

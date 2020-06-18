@@ -42,7 +42,12 @@ class RemoteHoloLiveRepository constructor(
                         HololiverItem(
                             id = it.id,
                             name = it.name,
-                            imageUrl = it.imageUrl
+                            twitterScreenName = it.twitterScreenName,
+                            imageUrl = it.imageUrl,
+                            generation = it.generation,
+                            basicInfo = it.basicInfo,
+                            channelId = it.channelId,
+                            fanArtHashTag = it.fanArtHashTag
                         )
                     }
 

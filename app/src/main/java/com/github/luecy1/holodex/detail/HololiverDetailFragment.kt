@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import coil.api.load
 import com.github.luecy1.holodex.databinding.FragmentHololiverDetailBinding
 import com.github.luecy1.holodex.di.ViewModelBuilder
@@ -28,6 +29,10 @@ class HololiverDetailFragment : DaggerFragment() {
 
     private val viewModel by viewModels<HololiverDetailViewModel> { viewModelFactory }
 
+    private val args: HololiverDetailFragmentArgs by navArgs()
+
+    private val hololiver by lazy { args.hololiverItem }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +49,9 @@ class HololiverDetailFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.image.load("https://pbs.twimg.com/profile_images/1263309015661965313/E34lYRNA_400x400.jpg")
+        binding.hololiver = hololiver
+
+        binding.image.load(hololiver.imageUrl)
 
         val streamInfoAdapter = StreamInfoAdapter(requireContext())
         binding.streamInfoDetail.adapter = streamInfoAdapter

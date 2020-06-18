@@ -10,6 +10,10 @@
         <variable
             name="viewModel"
             type="com.github.luecy1.holodex.detail.HololiverDetailViewModel" />
+
+        <variable
+            name="hololiver"
+            type="com.github.luecy1.holodex.data.HololiverItem" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -43,7 +47,7 @@
                     android:id="@+id/label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="天音かなた"
+                    android:text="@{hololiver.name}"
                     android:textColor="#FFF"
                     android:textSize="32dp" />
 
@@ -99,7 +103,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="誕生日:4/22\n身長142cm\nファンネーム：へい民\nイラストレーター：おしおしお"
+                    android:text="@{hololiver.basicInfo}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_end"
                     app:layout_constraintStart_toStartOf="@id/guideline_begin"
