@@ -6,28 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import coil.api.load
+import com.github.luecy1.holodex.App
 import com.github.luecy1.holodex.databinding.FragmentHololiverDetailBinding
-import com.github.luecy1.holodex.di.ViewModelBuilder
-import com.github.luecy1.holodex.di.ViewModelKey
-import dagger.Binds
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
 import dagger.android.support.DaggerFragment
-import dagger.multibindings.IntoMap
-import javax.inject.Inject
 
 class HololiverDetailFragment : DaggerFragment() {
 
     lateinit var binding: FragmentHololiverDetailBinding
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel by viewModels<HololiverDetailViewModel> { viewModelFactory }
+    private val viewModel by viewModels<HololiverDetailViewModel> {
+        (activity?.application as App).appComponent
+            .detailComponent()
+            .create("UCZlDXzGoo7d44bwdNObFacg")
+            .viewModelFactory()
+    }
 
     private val args: HololiverDetailFragmentArgs by navArgs()
 
@@ -69,22 +63,4 @@ class HololiverDetailFragment : DaggerFragment() {
 
         viewModel.initData()
     }
-}
-
-
-@Module
-abstract class HoloLiveDetailViewModelModule {
-
-    @ContributesAndroidInjector(
-        modules = [
-            ViewModelBuilder::class
-        ]
-    )
-    internal abstract fun hololiveDetailFragment(): HololiverDetailFragment
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(HololiverDetailViewModel::class)
-    abstract fun bindViewModel(viewModel: HololiverDetailViewModel): ViewModel
-
 }

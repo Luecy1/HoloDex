@@ -3,7 +3,8 @@ package com.github.luecy1.holodex.di
 import android.content.Context
 import com.github.luecy1.holodex.App
 import com.github.luecy1.holodex.BuildConfig
-import com.github.luecy1.holodex.detail.HoloLiveDetailViewModelModule
+import com.github.luecy1.holodex.detail.HoloLiveDetailComponent
+import com.github.luecy1.holodex.detail.HoloLiveDetailComponentModule
 import com.github.luecy1.holodex.list.HoloLiveListViewModelModule
 import com.github.luecy1.holodex.repository.HoloLiveRepository
 import com.github.luecy1.holodex.repository.RemoteHoloLiveRepository
@@ -33,7 +34,7 @@ import javax.inject.Singleton
     modules = [
         ViewModelBuilder::class,
         HoloLiveListViewModelModule::class,
-        HoloLiveDetailViewModelModule::class,
+        HoloLiveDetailComponentModule::class,
         AppModule::class,
         AndroidSupportInjectionModule::class
     ]
@@ -44,6 +45,8 @@ interface AppComponent : AndroidInjector<App> {
     interface Factory {
         fun create(@BindsInstance applicationContext: Context): AppComponent
     }
+
+    fun detailComponent(): HoloLiveDetailComponent.Factory
 }
 
 @Module

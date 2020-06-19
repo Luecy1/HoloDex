@@ -10,8 +10,8 @@ class StreamRepositoryImpl @Inject constructor(
     private val streamInfoService: StreamInfoService
 ) : StreamRepository {
 
-    override suspend fun getStreamInfoList(): Result<List<StreamItem>> {
-        val result = streamInfoService.fetchStreamInfo("UCZlDXzGoo7d44bwdNObFacg")
+    override suspend fun getStreamInfoList(channelId: String): Result<List<StreamItem>> {
+        val result = streamInfoService.fetchStreamInfo(channelId)
         when (result) {
             is Result.Success<Feed> -> {
                 val streamList = result.data.entryList.map { entry ->

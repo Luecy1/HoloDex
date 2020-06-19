@@ -7,6 +7,10 @@ import timber.log.Timber
 
 class App : DaggerApplication() {
 
+    val appComponent by lazy {
+        DaggerAppComponent.factory().create(this)
+    }
+
     override fun onCreate() {
         super.onCreate()
 
@@ -16,6 +20,6 @@ class App : DaggerApplication() {
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.factory().create(this)
+        return appComponent
     }
 }
