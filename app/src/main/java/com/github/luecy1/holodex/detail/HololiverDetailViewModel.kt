@@ -1,6 +1,7 @@
 package com.github.luecy1.holodex.detail
 
 import androidx.lifecycle.*
+import com.github.luecy1.holodex.data.HololiverItem
 import com.github.luecy1.holodex.data.Result
 import com.github.luecy1.holodex.di.ViewModelBuilder
 import com.github.luecy1.holodex.di.ViewModelKey
@@ -18,7 +19,7 @@ import twitter4j.Status
 import javax.inject.Inject
 
 class HololiverDetailViewModel @Inject constructor(
-    private val id: String,
+    private val hololiverItem: HololiverItem,
     private val streamRepository: StreamRepository,
     private val twitterService: TwitterService
 ) : ViewModel() {
@@ -36,8 +37,10 @@ class HololiverDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _streamLoading.postValue(true)
 
-            val streamInfoDeferred = async { streamRepository.getStreamInfoList(id) }
-            val statusListDeferred = async { twitterService.searchStatusWithImage() }
+            val streamInfoDeferred =
+                async { streamRepository.getStreamInfoList(hololiverItem.channelId) }
+            val statusListDeferred =
+                async { twitterService.searchStatusWithImage(hololiverItem.fanArtHashTag) }
 
             when (val streamInfoResult = streamInfoDeferred.await()) {
                 is Result.Success<List<StreamItem>> -> {
@@ -84,7 +87,7 @@ interface HoloLiveDetailComponent {
 
     @Subcomponent.Factory
     interface Factory {
-        fun create(@BindsInstance id: String): HoloLiveDetailComponent
+        fun create(@BindsInstance hololiverItem: HololiverItem): HoloLiveDetailComponent
     }
 
     fun viewModelFactory(): ViewModelProvider.Factory

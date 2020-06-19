@@ -10,7 +10,7 @@ data class HololiverItem(
     val twitterScreenName: String?,
     val imageUrl: String,
     val generation: List<String>,
-    val basicInfo: String? = null,
-    val channelId: String? = null,
-    val fanArtHashTag: String? = null
+    val basicInfo: String,
+    val channelId: String,
+    val fanArtHashTag: String
 ) : Parcelable

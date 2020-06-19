@@ -4,5 +4,5 @@ import com.github.luecy1.holodex.data.Result
 import twitter4j.Status
 
 interface TwitterService {
-    suspend fun searchStatusWithImage(): Result<List<Status>>
+    suspend fun searchStatusWithImage(fanArtHashTag: String): Result<List<Status>>
 }

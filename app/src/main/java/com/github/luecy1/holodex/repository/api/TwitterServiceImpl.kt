@@ -15,12 +15,13 @@ class TwitterServiceImpl(
 
     var firstFlg = true
 
-    override suspend fun searchStatusWithImage(): Result<List<Status>> =
+    override suspend fun searchStatusWithImage(fanArtHashTag: String): Result<List<Status>> =
         withContext(Dispatchers.IO) {
             try {
                 checkFirstAccess()
 
-                val queryResult = twitter.search(Query("#かなたーと -filter:retweets filter:images"))
+                val queryResult =
+                    twitter.search(Query("$fanArtHashTag -filter:retweets filter:images"))
                 Result.Success(queryResult.tweets)
             } catch (e: Exception) {
                 Result.Error(e)

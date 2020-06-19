@@ -19,7 +19,7 @@ class HololiverDetailFragment : DaggerFragment() {
     private val viewModel by viewModels<HololiverDetailViewModel> {
         (activity?.application as App).appComponent
             .detailComponent()
-            .create("UCZlDXzGoo7d44bwdNObFacg")
+            .create(args.hololiverItem)
             .viewModelFactory()
     }
 
