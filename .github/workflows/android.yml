@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: setup
+    name: build and distribute
     runs-on: ubuntu-latest
 
     steps:
@@ -30,24 +30,12 @@ jobs:
         GOOGLE_SERVICE: ${{ secrets.GOOGLE_SERVICE_JSON }}
       run: echo $GOOGLE_SERVICE | base64 --decode --ignore-garbage > ./app/google-services.json
 
-  assembleApk:
-    name: assembleApk
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:   
     - name: generateAPK
       run: ./gradlew assembleDebug
       env:
         OAUTH_CONSUMERKEY: ${{ secrets.OAUTH_CONSUMERKEY }}
         OAUTH_CONSUMERSECRET: ${{ secrets.OAUTH_CONSUMERSECRET }}
 
-  distributeApk:
-    name: distributeApk
-    needs: assembleApk
-    runs-on: ubuntu-latest
-
-    steps:   
     - name: Distribute App
       run: |
        curl \
