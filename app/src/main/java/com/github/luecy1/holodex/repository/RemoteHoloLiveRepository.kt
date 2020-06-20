@@ -1,6 +1,5 @@
 package com.github.luecy1.holodex.repository
 
-import android.content.Context
 import com.github.luecy1.holodex.data.GenerationItem
 import com.github.luecy1.holodex.data.HoloLiveGeneration
 import com.github.luecy1.holodex.data.HololiverItem
@@ -11,7 +10,6 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class RemoteHoloLiveRepository constructor(
-    private val context: Context,
     private val hololiveService: HololiveAPIService
 ) : HoloLiveRepository {
 
@@ -25,18 +23,7 @@ class RemoteHoloLiveRepository constructor(
 
         return withContext(Dispatchers.IO) {
 
-            val generationIds = context.assets.open("HoloLiveGeneration.csv").bufferedReader()
-                .readLines()
-                .filter { it.isNotBlank() }
-                .map { line ->
-                    val (id, name) = line.split(",")
-                    id.toInt() to name
-                }
-
             try {
-                HoloLiveGeneration.values().map { generation ->
-
-                }
 
                 val hololiveMembers = hololiveService.hololiveMembers()
 

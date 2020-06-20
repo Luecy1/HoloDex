@@ -55,10 +55,9 @@ object AppModule {
     @Singleton
     @Provides
     fun provideHoloLiverRepository(
-        applicationContext: Context,
         hololiveAPIService: HololiveAPIService
     ): HoloLiveRepository {
-        return RemoteHoloLiveRepository(applicationContext, hololiveAPIService)
+        return RemoteHoloLiveRepository(hololiveAPIService)
     }
 
     @Provides
