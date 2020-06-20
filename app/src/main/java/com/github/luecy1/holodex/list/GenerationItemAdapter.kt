@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.github.luecy1.holodex.R
 import com.github.luecy1.holodex.data.GenerationItem
+import com.github.luecy1.holodex.data.HoloLiveGeneration
 import com.github.luecy1.holodex.databinding.ItemGenerationBinding
 
 
@@ -23,7 +24,7 @@ class GenerationItemAdapter(
 
     private val layoutInflater = LayoutInflater.from(context)
 
-    private val adapterCache = mutableMapOf<String, HololiveMemberItemAdapter>()
+    private val adapterCache = mutableMapOf<HoloLiveGeneration, HololiveMemberItemAdapter>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemGenerationBinding.inflate(layoutInflater, parent, false)
@@ -39,22 +40,19 @@ class GenerationItemAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val generation = getItem(position)
-        holder.generationText.text = generation.name
+        holder.binding.generation = generation.generation
 
-        val adapter = adapterCache.getOrPut(generation.name) {
+        val adapter = adapterCache.getOrPut(generation.generation) {
             HololiveMemberItemAdapter(context, viewModel).apply {
                 submitList(generation.hololiverList)
             }
         }
 
-        holder.recyclerView.adapter = adapter
+        holder.binding.recyclerView.adapter = adapter
     }
 
-    inner class ViewHolder(binding: ItemGenerationBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val generationText = binding.generationText
-        val recyclerView = binding.recyclerView
-    }
+    inner class ViewHolder(val binding: ItemGenerationBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     class ItemCallback : DiffUtil.ItemCallback<GenerationItem>() {
         override fun areItemsTheSame(oldItem: GenerationItem, newItem: GenerationItem): Boolean {

@@ -91,7 +91,7 @@ object AppModule {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://luecy1.github.io")
+            .baseUrl("https://luecy1.github.io/HoloDexBackEnd/")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okhttp)
             .build()

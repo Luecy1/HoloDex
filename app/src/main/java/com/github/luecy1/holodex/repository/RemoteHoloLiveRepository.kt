@@ -2,6 +2,7 @@ package com.github.luecy1.holodex.repository
 
 import android.content.Context
 import com.github.luecy1.holodex.data.GenerationItem
+import com.github.luecy1.holodex.data.HoloLiveGeneration
 import com.github.luecy1.holodex.data.HololiverItem
 import com.github.luecy1.holodex.data.Result
 import com.github.luecy1.holodex.repository.api.HololiveAPIService
@@ -33,11 +34,17 @@ class RemoteHoloLiveRepository constructor(
                 }
 
             try {
+                HoloLiveGeneration.values().map { generation ->
+
+                }
+
                 val hololiveMembers = hololiveService.hololiveMembers()
 
-                val generationList = generationIds.map { (generationId, name) ->
+                val generationList = HoloLiveGeneration.values().map { generation ->
+
+                    // 世代ごとにグルーピングするロジック
                     val generationMember = hololiveMembers.filter { hololive ->
-                        hololive.generation.contains(generationId.toString())
+                        hololive.generation.contains(generation.id.toString())
                     }.map {
                         HololiverItem(
                             id = it.id,
@@ -52,8 +59,8 @@ class RemoteHoloLiveRepository constructor(
                     }
 
                     GenerationItem(
-                        id = generationId,
-                        name = name,
+                        id = generation.id,
+                        generation = generation,
                         hololiverList = generationMember
                     )
                 }

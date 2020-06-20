@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface HololiveAPIService {
 
-    @GET("/HoloDexBackEnd/members.json")
+    @GET("members.json")
     suspend fun hololiveMembers(): List<HololiveItem>
 }
