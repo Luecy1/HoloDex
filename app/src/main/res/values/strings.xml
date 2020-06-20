@@ -3,10 +3,6 @@
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="error_message">Failed fetch data</string>
 
-    <string name="twitter_search_base_url" translatable="false">https://twitter.com/search?q=%s</string>
-
-    <string name="twitter_open_detail" translatable="false">twitter.comで詳細を開く</string>
-
     <string-array name="hololive_generation">
         <item>0th Generation</item>
         <item>1st Generation</item>
@@ -15,4 +11,13 @@
         <item>3rd Generation</item>
         <item>4th Generation</item>
     </string-array>
+
+    <!-- detail fragment -->
+    <string name="youtube_channel_base_url" translatable="false">https://www.youtube.com/channel/%s</string>
+
+    <string name="twitter_search_base_url" translatable="false">https://twitter.com/search?q=%s</string>
+    <string name="youtube_channel_open">Open Youtube Channel</string>
+    <string name="twitter_open_detail">open twitter.com</string>
+    <string name="twitter_open_search">more  (move twitter.com)</string>
+
 </resources>

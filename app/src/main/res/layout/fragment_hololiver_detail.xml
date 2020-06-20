@@ -52,7 +52,8 @@
                     android:layout_height="wrap_content"
                     android:text="@{hololiver.name}"
                     android:textColor="#FFF"
-                    android:textSize="32dp" />
+                    android:textSize="28sp"
+                    tools:text="天音かなた" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_folding_top"
@@ -156,10 +157,13 @@
                     android:id="@+id/go_to_youtube"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Youtubeチャンネルへ"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:baseUrl="@{R.string.youtube_channel_base_url}"
+                    app:href="@{hololiver.channelId}"
+                    app:innerText="@{@string/youtube_channel_open}"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-                    app:layout_constraintTop_toBottomOf="@id/stream_info_detail" />
+                    app:layout_constraintTop_toBottomOf="@id/stream_info_detail"
+                    tools:text="@string/youtube_channel_open" />
 
                 <TextView
                     android:id="@+id/fan_art"
@@ -195,10 +199,10 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:baseUrl="@{R.string.twitter_search_base_url}"
                     app:href="@{hololiver.fanArtHashTag}"
-                    app:innerText="@{`もっと見る(twitter.comへ移動)`}"
+                    app:innerText="@{@string/twitter_open_search}"
                     app:layout_constraintEnd_toEndOf="@id/guideline_end"
                     app:layout_constraintTop_toBottomOf="@id/fan_art_list"
-                    tools:text="もっと見る(twitter.comへ移動)" />
+                    tools:text="@string/twitter_open_search" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

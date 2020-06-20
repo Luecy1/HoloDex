@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">ホロライブずかん</string>
     <string name="error_message">データの取得に失敗しました</string>
+
+    <!-- detail fragment -->
+    <string name="youtube_channel_open">Youtubeチャンネルを開く</string>
+    <string name="twitter_open_detail">twitter.comで詳細を開く</string>
+    <string name="twitter_open_search">もっと見る(twitter.comへ移動)</string>
 </resources>
