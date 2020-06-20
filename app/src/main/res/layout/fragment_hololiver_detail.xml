@@ -41,7 +41,8 @@
                     android:id="@+id/image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/dummy_400x400" />
+                    android:src="@drawable/dummy_400x400"
+                    app:imageURL="@{hololiver.imageUrl}" />
 
                 <TextView
                     android:id="@+id/label"
@@ -100,14 +101,15 @@
                     android:id="@+id/basic_info_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="@{hololiver.basicInfo}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_end"
                     app:layout_constraintStart_toStartOf="@id/guideline_begin"
-                    app:layout_constraintTop_toBottomOf="@id/basic_info" />
+                    app:layout_constraintTop_toBottomOf="@id/basic_info"
+                    tools:text="誕生日:4/22\n身長142cm\nファンネーム：へい民\nイラストレーター：おしおしお" />
 
                 <TextView
                     android:id="@+id/stream_info"
@@ -123,10 +125,10 @@
                     android:id="@+id/stream_info_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:minHeight="300dp"
                     android:layout_marginTop="8dp"
-                    android:overScrollMode="never"
                     android:focusable="false"
+                    android:minHeight="300dp"
+                    android:overScrollMode="never"
                     android:visibility="@{viewModel.streamLoading ? View.INVISIBLE : View.VISIBLE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_end"
@@ -172,9 +174,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:focusable="false"
                     android:minHeight="300dp"
                     android:overScrollMode="never"
-                    android:focusable="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_end"
                     app:layout_constraintHorizontal_bias="0.0"

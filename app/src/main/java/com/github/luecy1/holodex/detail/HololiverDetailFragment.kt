@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import coil.api.load
 import com.github.luecy1.holodex.App
 import com.github.luecy1.holodex.databinding.FragmentHololiverDetailBinding
 import dagger.android.support.DaggerFragment
@@ -45,20 +44,18 @@ class HololiverDetailFragment : DaggerFragment() {
 
         binding.hololiver = hololiver
 
-        binding.image.load(hololiver.imageUrl)
-
-        val streamInfoAdapter = StreamInfoAdapter(requireContext())
-        binding.streamInfoDetail.adapter = streamInfoAdapter
-
         viewModel.streamLiveData.observe(viewLifecycleOwner, Observer {
+            val streamInfoAdapter = StreamInfoAdapter(requireContext())
             streamInfoAdapter.submitList(it)
+
+            binding.streamInfoDetail.adapter = streamInfoAdapter
         })
 
-        val fanArtAdapter = FanArtAdapter()
-        binding.fanArtList.adapter = fanArtAdapter
-
         viewModel.fanArtLiveData.observe(viewLifecycleOwner, Observer { fanArtList ->
+            val fanArtAdapter = FanArtAdapter()
             fanArtAdapter.submitList(fanArtList)
+
+            binding.fanArtList.adapter = fanArtAdapter
         })
 
         viewModel.initData()
