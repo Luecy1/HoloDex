@@ -7,6 +7,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.github.luecy1.holodex.R" />
+
         <variable
             name="viewModel"
             type="com.github.luecy1.holodex.detail.HololiverDetailViewModel" />
@@ -190,10 +192,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="27dp"
                     android:layout_marginTop="8dp"
-                    android:text="もっと見る"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:baseUrl="@{R.string.twitter_search_base_url}"
+                    app:href="@{hololiver.fanArtHashTag}"
+                    app:innerText="@{`もっと見る(twitter.comへ移動)`}"
                     app:layout_constraintEnd_toEndOf="@id/guideline_end"
-                    app:layout_constraintTop_toBottomOf="@id/fan_art_list" />
+                    app:layout_constraintTop_toBottomOf="@id/fan_art_list"
+                    tools:text="もっと見る(twitter.comへ移動)" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

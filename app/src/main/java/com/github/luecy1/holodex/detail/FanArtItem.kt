@@ -6,5 +6,6 @@ data class FanArtItem(
     val name: String,
     val screenName: String,
     val body: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val detailUrl: String
 )

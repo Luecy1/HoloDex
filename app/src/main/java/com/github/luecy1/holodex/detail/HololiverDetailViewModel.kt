@@ -55,13 +55,15 @@ class HololiverDetailViewModel @Inject constructor(
                     val fanArtList = statusListResult.data.map {
                         val user = it.user
                         val media = it.mediaEntities.firstOrNull()
+
                         FanArtItem(
                             it.id,
                             user.profileImageURLHttps,
                             user.name,
                             user.screenName,
                             it.text,
-                            media?.mediaURLHttps ?: ""
+                            media?.mediaURLHttps ?: "",
+                            "https://twitter.com/${it.user.screenName}/status/${it.id}"
                         )
                     }
                     _fanArtLiveData.postValue(fanArtList)
