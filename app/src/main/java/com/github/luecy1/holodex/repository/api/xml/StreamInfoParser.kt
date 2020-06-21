@@ -6,7 +6,9 @@ import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import java.io.InputStream
 
-class StreamInfoParser {
+class StreamInfoParser(
+    private val entryLimit: Int = 5
+) {
 
     private val ns: String? = null
 
@@ -38,6 +40,11 @@ class StreamInfoParser {
                 readEntry(parser)?.let {
                     entries.add(it)
                 }
+
+                if (entryLimit == entries.size) {
+                    break
+                }
+
             } else {
                 skip(parser)
             }
