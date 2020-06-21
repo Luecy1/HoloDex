@@ -54,7 +54,10 @@ class HololiverDetailViewModel @Inject constructor(
                 is Result.Success<List<Status>> -> {
                     val fanArtList = statusListResult.data.map {
                         val user = it.user
-                        val media = it.mediaEntities.firstOrNull()
+
+                        val mediaList = it.mediaEntities.map { media ->
+                            media.mediaURLHttps
+                        }
 
                         FanArtItem(
                             it.id,
@@ -62,7 +65,7 @@ class HololiverDetailViewModel @Inject constructor(
                             user.name,
                             user.screenName,
                             it.text,
-                            media?.mediaURLHttps ?: "",
+                            mediaList,
                             "https://twitter.com/${it.user.screenName}/status/${it.id}"
                         )
                     }

@@ -6,6 +6,11 @@ data class FanArtItem(
     val name: String,
     val screenName: String,
     val body: String,
-    val imageUrl: String,
+    val imageUrl: List<String>,
     val detailUrl: String
-)
+) {
+
+    fun inRangeIndexIndexImageUrl(index: Int): Boolean {
+        return (imageUrl.size > index)
+    }
+}
