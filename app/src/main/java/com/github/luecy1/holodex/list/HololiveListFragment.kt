@@ -42,6 +42,7 @@ class HololiveListFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
         val adapter = GenerationItemAdapter(view.context, viewModel)
 
@@ -64,8 +65,6 @@ class HololiveListFragment : DaggerFragment() {
                 HololiveListFragmentDirections.actionItemFragmentToHololiverDetailFragment(it)
             findNavController().navigate(action)
         })
-
-        viewModel.initData()
     }
 }
 

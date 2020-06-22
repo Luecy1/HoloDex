@@ -26,8 +26,16 @@ class HololiveListViewModel @Inject constructor(
     private val _hololiveList = MutableLiveData<List<GenerationItem>>()
     val hololiveList: LiveData<List<GenerationItem>> = _hololiveList
 
+    private val _loading = MutableLiveData<Boolean>(false)
+    val loading: LiveData<Boolean> = _loading
+
+    init {
+        initData()
+    }
+
     fun initData() {
         viewModelScope.launch {
+            _loading.value = true
             when (val holoLiveListResult = repository.getHoloLiveList()) {
                 is Result.Success<List<GenerationItem>> -> {
                     _hololiveList.postValue(holoLiveListResult.data)
@@ -36,6 +44,7 @@ class HololiveListViewModel @Inject constructor(
                     _errorMessage.postValue(R.string.error_message)
                 }
             }
+            _loading.value = false
         }
     }
 

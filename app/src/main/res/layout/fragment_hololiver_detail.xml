@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:focusable="false"
-                    android:minHeight="300dp"
+                    android:minHeight="400dp"
                     android:overScrollMode="never"
                     android:visibility="@{viewModel.streamLoading ? View.INVISIBLE : View.VISIBLE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -143,11 +143,10 @@
 
                 <ProgressBar
                     android:id="@+id/stream_info_progress"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="@dimen/progress_bar_size"
+                    android:layout_height="@dimen/progress_bar_size"
                     android:layout_marginTop="8dp"
                     android:visibility="@{viewModel.streamLoading ? View.VISIBLE : View.GONE}"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="@+id/stream_info_detail"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_end"
                     app:layout_constraintStart_toStartOf="@id/guideline_begin"

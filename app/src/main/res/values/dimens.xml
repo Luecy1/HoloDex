@@ -6,4 +6,5 @@
     <dimen name="hololiveItemRound">10dp</dimen>
 
     <dimen name="hololiveItemMargin">10dp</dimen>
+    <dimen name="progress_bar_size">100dp</dimen>
 </resources>
