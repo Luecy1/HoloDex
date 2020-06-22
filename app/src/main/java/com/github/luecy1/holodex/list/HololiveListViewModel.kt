@@ -20,8 +20,8 @@ class HololiveListViewModel @Inject constructor(
     private val _openHololiver = MutableLiveData<Event<HololiverItem>>()
     val openHololiver: LiveData<Event<HololiverItem>> = _openHololiver
 
-    private val _errorMessage = MutableLiveData<Int>()
-    val errorMessage: LiveData<Int> = _errorMessage
+    private val _errorMessage = MutableLiveData<Event<Int>>()
+    val errorMessage: LiveData<Event<Int>> = _errorMessage
 
     private val _hololiveList = MutableLiveData<List<GenerationItem>>()
     val hololiveList: LiveData<List<GenerationItem>> = _hololiveList
@@ -33,15 +33,18 @@ class HololiveListViewModel @Inject constructor(
         initData()
     }
 
-    fun initData() {
+    fun initData(forceLoad: Boolean = false) {
+
         viewModelScope.launch {
             _loading.value = true
-            when (val holoLiveListResult = repository.getHoloLiveList()) {
+
+            when (val holoLiveListResult = repository.getHoloLiveList(forceLoad)) {
                 is Result.Success<List<GenerationItem>> -> {
-                    _hololiveList.postValue(holoLiveListResult.data)
+                    _hololiveList.value = holoLiveListResult.data
                 }
                 is Result.Error -> {
-                    _errorMessage.postValue(R.string.error_message)
+                    _hololiveList.value = null
+                    _errorMessage.value = Event(R.string.error_message)
                 }
             }
             _loading.value = false

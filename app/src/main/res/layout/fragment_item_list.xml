@@ -16,15 +16,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:name="com.github.luecy1.holodex.ItemFragment"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="@{viewModel.loading ? View.GONE : View.VISIBLE}"
-            app:layoutManager="LinearLayoutManager"
-            tools:context=".list.HololiveListFragment"
-            tools:listitem="@layout/item_generation" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:name="com.github.luecy1.holodex.ItemFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{viewModel.loading ? View.GONE : View.VISIBLE}"
+                app:layoutManager="LinearLayoutManager"
+                tools:context=".list.HololiveListFragment"
+                tools:listitem="@layout/item_generation" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar
             android:layout_width="@dimen/progress_bar_size"

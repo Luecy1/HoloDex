@@ -15,7 +15,11 @@ class RemoteHoloLiveRepository constructor(
 
     var cache: Result<List<GenerationItem>>? = null
 
-    override suspend fun getHoloLiveList(): Result<List<GenerationItem>> {
+    override suspend fun getHoloLiveList(forceLoad: Boolean): Result<List<GenerationItem>> {
+
+        if (forceLoad) {
+            cache = null
+        }
 
         cache?.let {
             return it

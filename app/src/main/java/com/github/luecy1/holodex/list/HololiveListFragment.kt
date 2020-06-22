@@ -56,7 +56,7 @@ class HololiveListFragment : DaggerFragment() {
             adapter.submitList(generationList)
         })
 
-        viewModel.errorMessage.observe(viewLifecycleOwner, Observer { resId ->
+        viewModel.errorMessage.observe(viewLifecycleOwner, EventObserver { resId ->
             Snackbar.make(view, resId, Snackbar.LENGTH_SHORT).show()
         })
 
@@ -65,6 +65,11 @@ class HololiveListFragment : DaggerFragment() {
                 HololiveListFragmentDirections.actionItemFragmentToHololiverDetailFragment(it)
             findNavController().navigate(action)
         })
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.initData(forceLoad = true)
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 }
 
