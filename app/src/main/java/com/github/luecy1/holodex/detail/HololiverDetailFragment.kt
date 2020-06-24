@@ -1,5 +1,6 @@
 package com.github.luecy1.holodex.detail
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.palette.graphics.Palette
+import coil.api.load
+import coil.bitmappool.BitmapPool
+import coil.transform.Transformation
 import com.github.luecy1.holodex.App
 import com.github.luecy1.holodex.databinding.FragmentHololiverDetailBinding
 import dagger.android.support.DaggerFragment
@@ -57,6 +62,21 @@ class HololiverDetailFragment : DaggerFragment() {
 
             binding.fanArtList.adapter = fanArtAdapter
         })
+
+        binding.image.load(hololiver.imageUrl) {
+            transformations(object : Transformation {
+                override fun key() = "paletteTransformer"
+
+                override suspend fun transform(pool: BitmapPool, input: Bitmap): Bitmap {
+                    Palette.from(input).generate { pallet ->
+                        pallet?.vibrantSwatch?.rgb?.let { vibrantSwatchRgbInt ->
+                            binding.appBar.setBackgroundColor(vibrantSwatchRgbInt)
+                        }
+                    }
+                    return input
+                }
+            })
+        }
 
         viewModel.initData()
     }
