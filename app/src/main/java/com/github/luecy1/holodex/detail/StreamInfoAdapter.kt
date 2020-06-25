@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.luecy1.holodex.databinding.ItemStreamInfoBinding
 
 
-class StreamInfoAdapter(context: Context) :
-    ListAdapter<StreamItem, StreamInfoAdapter.ViewHolder>(ItemCallback()) {
+class StreamInfoAdapter(
+    context: Context,
+    private val viewModel: HololiverDetailViewModel
+) : ListAdapter<StreamItem, StreamInfoAdapter.ViewHolder>(ItemCallback()) {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -24,6 +26,8 @@ class StreamInfoAdapter(context: Context) :
         val streamInfo = getItem(position)
 
         holder.binding.item = streamInfo
+        holder.binding.viewModel = viewModel
+
         holder.binding.executePendingBindings()
     }
 

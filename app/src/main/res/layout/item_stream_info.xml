@@ -8,12 +8,17 @@
         <variable
             name="item"
             type="com.github.luecy1.holodex.detail.StreamItem" />
+
+        <variable
+            name="viewModel"
+            type="com.github.luecy1.holodex.detail.HololiverDetailViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="4dp"
+        android:onClick="@{() -> viewModel.onStreamItemClick(item)}"
         app:cardCornerRadius="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

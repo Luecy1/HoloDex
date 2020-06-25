@@ -16,6 +16,7 @@ class StreamRepositoryImpl @Inject constructor(
             is Result.Success<Feed> -> {
                 val streamList = result.data.entryList.map { entry ->
                     StreamItem(
+                        entry.videoId,
                         entry.title,
                         entry.mediaGroup.description.take(100),
                         entry.mediaGroup.thumbnail

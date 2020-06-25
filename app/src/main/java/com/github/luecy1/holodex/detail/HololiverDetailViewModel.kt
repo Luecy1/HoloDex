@@ -1,6 +1,7 @@
 package com.github.luecy1.holodex.detail
 
 import androidx.lifecycle.*
+import com.github.luecy1.holodex.Event
 import com.github.luecy1.holodex.data.HololiverItem
 import com.github.luecy1.holodex.data.Result
 import com.github.luecy1.holodex.di.ViewModelBuilder
@@ -32,6 +33,9 @@ class HololiverDetailViewModel @Inject constructor(
 
     private val _fanArtLiveData = MutableLiveData<List<FanArtItem>>()
     val fanArtLiveData: LiveData<List<FanArtItem>> = _fanArtLiveData
+
+    private val _onStreamInfoClick = MutableLiveData<Event<StreamItem>>()
+    val onStreamInfoClick: LiveData<Event<StreamItem>> = _onStreamInfoClick
 
     fun initData() {
         viewModelScope.launch {
@@ -73,6 +77,10 @@ class HololiverDetailViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun onStreamItemClick(streamItem: StreamItem) {
+        _onStreamInfoClick.value = Event(streamItem)
     }
 }
 

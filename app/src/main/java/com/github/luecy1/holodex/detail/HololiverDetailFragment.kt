@@ -1,10 +1,12 @@
 package com.github.luecy1.holodex.detail
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -13,6 +15,7 @@ import coil.api.load
 import coil.bitmappool.BitmapPool
 import coil.transform.Transformation
 import com.github.luecy1.holodex.App
+import com.github.luecy1.holodex.EventObserver
 import com.github.luecy1.holodex.databinding.FragmentHololiverDetailBinding
 import dagger.android.support.DaggerFragment
 
@@ -50,7 +53,7 @@ class HololiverDetailFragment : DaggerFragment() {
         binding.hololiver = hololiver
 
         viewModel.streamLiveData.observe(viewLifecycleOwner, Observer {
-            val streamInfoAdapter = StreamInfoAdapter(requireContext())
+            val streamInfoAdapter = StreamInfoAdapter(requireContext(), viewModel)
             streamInfoAdapter.submitList(it)
 
             binding.streamInfoDetail.adapter = streamInfoAdapter
@@ -61,6 +64,13 @@ class HololiverDetailFragment : DaggerFragment() {
             fanArtAdapter.submitList(fanArtList)
 
             binding.fanArtList.adapter = fanArtAdapter
+        })
+
+        viewModel.onStreamInfoClick.observe(viewLifecycleOwner, EventObserver {
+            val url = "https://www.youtube.com/watch?v=${it.videoId}"
+            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+
+            activity?.startActivity(intent)
         })
 
         binding.image.load(hololiver.imageUrl) {

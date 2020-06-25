@@ -54,6 +54,7 @@ class StreamInfoParser(
 
     private fun readEntry(parser: XmlPullParser): Entry? {
         parser.require(XmlPullParser.START_TAG, ns, "entry")
+        var videoId: String? = null
         var title: String? = null
         var mediaGroup: MediaGroup? = null
         var link: String? = null
@@ -62,6 +63,7 @@ class StreamInfoParser(
                 continue
             }
             when (parser.name) {
+                "yt:videoId" -> videoId = readInnerText(parser, "yt:videoId")
                 "title" -> title = readInnerText(parser, "title")
                 "media:group" -> mediaGroup = readMediaGroup(parser)
                 "link" -> link = readLink(parser)
@@ -69,11 +71,12 @@ class StreamInfoParser(
             }
         }
 
+        videoId ?: return null
         title ?: return null
         mediaGroup ?: return null
         link ?: return null
 
-        return Entry(title, mediaGroup, link)
+        return Entry(videoId, title, mediaGroup, link)
     }
 
     private fun readInnerText(parser: XmlPullParser, tagName: String): String {
