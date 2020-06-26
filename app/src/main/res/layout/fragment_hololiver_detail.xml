@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="基本情報"
+                    android:text="@string/basic_info"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     app:layout_constraintStart_toStartOf="@id/guideline_begin"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -117,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:text="配信情報"
+                    android:text="@string/stream_info"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     app:layout_constraintStart_toStartOf="@+id/guideline_begin"
                     app:layout_constraintTop_toBottomOf="@id/basic_info_detail" />
@@ -167,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:text="ファンアート"
+                    android:text="@string/fan_art"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     app:layout_constraintStart_toStartOf="@+id/guideline_begin"
                     app:layout_constraintTop_toBottomOf="@id/stream_info_detail" />

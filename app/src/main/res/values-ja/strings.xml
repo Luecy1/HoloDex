@@ -6,4 +6,7 @@
     <string name="youtube_channel_open">Youtubeチャンネルを開く</string>
     <string name="twitter_open_detail">twitter.comで詳細を開く</string>
     <string name="twitter_open_search">もっと見る(twitter.comへ移動)</string>
+    <string name="basic_info">基本情報</string>
+    <string name="stream_info">配信情報</string>
+    <string name="fan_art">ファンアート</string>
 </resources>

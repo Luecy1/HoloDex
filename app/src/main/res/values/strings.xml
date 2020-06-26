@@ -19,5 +19,8 @@
     <string name="youtube_channel_open">Open Youtube Channel</string>
     <string name="twitter_open_detail">open twitter.com</string>
     <string name="twitter_open_search">more  (move twitter.com)</string>
+    <string name="basic_info">Basic Information</string>
+    <string name="stream_info">Stream</string>
+    <string name="fan_art">Fan Art</string>
 
 </resources>
