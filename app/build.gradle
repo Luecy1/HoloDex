@@ -32,11 +32,6 @@ android {
         }
     }
 
-    sourceSets {
-        test.java.srcDirs += 'src/test/java'
-        androidTest.java.srcDirs += 'src/androidTest/java'
-    }
-
     buildTypes {
         release {
             minifyEnabled true
