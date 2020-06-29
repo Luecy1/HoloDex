@@ -4,5 +4,5 @@
     <corners
         android:bottomLeftRadius="@dimen/hololiveItemRound"
         android:bottomRightRadius="@dimen/hololiveItemRound" />
-    <solid android:color="#FF424242" />
+    <solid android:color="@color/material_on_background_emphasis_medium" />
 </shape>
