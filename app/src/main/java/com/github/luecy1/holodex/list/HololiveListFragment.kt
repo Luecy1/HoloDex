@@ -15,6 +15,7 @@ import com.github.luecy1.holodex.databinding.FragmentItemListBinding
 import com.github.luecy1.holodex.di.ViewModelBuilder
 import com.github.luecy1.holodex.di.ViewModelKey
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -61,6 +62,17 @@ class HololiveListFragment : DaggerFragment() {
         })
 
         viewModel.openHololiver.observe(viewLifecycleOwner, EventObserver {
+
+            val loggingBundle = Bundle().apply {
+                putString("id", it.id.toString())
+                putString("name", it.name)
+            }
+
+            // event log
+            FirebaseAnalytics.getInstance(requireContext()).logEvent(
+                FirebaseAnalytics.Event.SELECT_CONTENT, loggingBundle
+            )
+
             val action =
                 HololiveListFragmentDirections.actionItemFragmentToHololiverDetailFragment(it)
             findNavController().navigate(action)
