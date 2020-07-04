@@ -8,3 +8,7 @@ Hololiveの情報を確認できるAndroidアプリ
 This app use twitter api.
 
 you setting consumerKey and consumerSecret.
+
+## icon image
+
+https://www.pixiv.net/artworks/69113580
