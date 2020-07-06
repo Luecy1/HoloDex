@@ -24,6 +24,13 @@
 -keepnames class androidx.navigation.fragment.NavHostFragment
 -keepnames class com.github.luecy1.holodex.data.HololiverItem
 
+# twitter4j
+-dontwarn twitter4j.management.**
+-dontwarn twitter4j.TwitterAPIMonitor
+-dontwarn twitter4j.internal.**
+-dontwarn twitter4j.Annotation
+-keep class twitter4j.** { *; }
+
 #### OkHttp, Retrofit and Moshi
 -dontwarn okhttp3.**
 -dontwarn retrofit2.Platform$Java8
