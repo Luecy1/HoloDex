@@ -17,6 +17,7 @@ import coil.transform.Transformation
 import com.github.luecy1.holodex.App
 import com.github.luecy1.holodex.EventObserver
 import com.github.luecy1.holodex.databinding.FragmentHololiverDetailBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 
 class HololiverDetailFragment : DaggerFragment() {
@@ -87,6 +88,10 @@ class HololiverDetailFragment : DaggerFragment() {
                 }
             })
         }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner, EventObserver {
+            Snackbar.make(view, it, Snackbar.LENGTH_LONG).show()
+        })
 
         viewModel.initData()
     }

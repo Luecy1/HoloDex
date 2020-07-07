@@ -2,6 +2,7 @@ package com.github.luecy1.holodex.detail
 
 import androidx.lifecycle.*
 import com.github.luecy1.holodex.Event
+import com.github.luecy1.holodex.R
 import com.github.luecy1.holodex.data.HololiverItem
 import com.github.luecy1.holodex.data.Result
 import com.github.luecy1.holodex.di.ViewModelBuilder
@@ -37,6 +38,9 @@ class HololiverDetailViewModel @Inject constructor(
     private val _onStreamInfoClick = MutableLiveData<Event<StreamItem>>()
     val onStreamInfoClick: LiveData<Event<StreamItem>> = _onStreamInfoClick
 
+    private val _errorMessage = MutableLiveData<Event<Int>>()
+    val errorMessage: LiveData<Event<Int>> = _errorMessage
+
     fun initData() {
         viewModelScope.launch {
             _streamLoading.postValue(true)
@@ -49,6 +53,9 @@ class HololiverDetailViewModel @Inject constructor(
             when (val streamInfoResult = streamInfoDeferred.await()) {
                 is Result.Success<List<StreamItem>> -> {
                     _streamLiveData.postValue(streamInfoResult.data)
+                }
+                is Result.Error -> {
+                    _errorMessage.value = Event(R.string.error_message)
                 }
             }
 
@@ -74,6 +81,9 @@ class HololiverDetailViewModel @Inject constructor(
                         )
                     }
                     _fanArtLiveData.postValue(fanArtList)
+                }
+                is Result.Error -> {
+                    _errorMessage.value = Event(R.string.error_message)
                 }
             }
         }
