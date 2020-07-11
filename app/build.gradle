@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+
 def isCi = System.getenv 'CI'
 def consumerKey = System.getenv 'OAUTH_CONSUMERKEY'
 def consumerSecret = System.getenv 'OAUTH_CONSUMERSECRET'
@@ -16,8 +20,9 @@ android {
         applicationId "com.github.luecy1.holodex"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 3
-        versionName "1.0"
+
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
