@@ -18,6 +18,11 @@ class TwitterServiceImpl(
     override suspend fun searchStatusWithImage(fanArtHashTag: String): Result<List<Status>> =
         withContext(Dispatchers.IO) {
             try {
+
+                if (fanArtHashTag.isEmpty()) {
+                    return@withContext Result.Error(Exception(" non hash tag ...? "))
+                }
+
                 checkFirstAccess()
 
                 val queryResult =
