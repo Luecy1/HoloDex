@@ -1,14 +1,11 @@
 package com.github.luecy1.holodex.data
 
 import android.content.Context
-import android.os.Parcelable
 import com.github.luecy1.holodex.R
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 enum class HoloLiveGeneration(
     val id: Int
-) : Parcelable {
+) {
 
     Zero(1),
     First(2),

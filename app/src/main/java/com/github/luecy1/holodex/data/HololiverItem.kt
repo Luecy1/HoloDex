@@ -1,7 +1,7 @@
 package com.github.luecy1.holodex.data
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class HololiverItem(
