@@ -11,8 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
-import coil.api.load
-import coil.bitmappool.BitmapPool
+import coil.bitmap.BitmapPool
+import coil.load
+import coil.size.Size
 import coil.transform.Transformation
 import com.github.luecy1.holodex.App
 import com.github.luecy1.holodex.EventObserver
@@ -77,8 +78,11 @@ class HololiverDetailFragment : DaggerFragment() {
         binding.image.load(hololiver.imageUrl) {
             transformations(object : Transformation {
                 override fun key() = "paletteTransformer"
-
-                override suspend fun transform(pool: BitmapPool, input: Bitmap): Bitmap {
+                override suspend fun transform(
+                    pool: BitmapPool,
+                    input: Bitmap,
+                    size: Size
+                ): Bitmap {
                     Palette.from(input).generate { pallet ->
                         pallet?.vibrantSwatch?.rgb?.let { vibrantSwatchRgbInt ->
                             binding.appBar.setBackgroundColor(vibrantSwatchRgbInt)

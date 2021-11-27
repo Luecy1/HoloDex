@@ -7,7 +7,7 @@ import android.text.method.LinkMovementMethod
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import coil.api.load
+import coil.load
 import java.net.URLEncoder
 
 
