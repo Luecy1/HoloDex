@@ -6,7 +6,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 def versionMajor = 1
 def versionMinor = 1
-def versionPatch = 0
+def versionPatch = 1
 
 def isCi = System.getenv 'CI'
 def consumerKey = System.getenv 'OAUTH_CONSUMERKEY'
