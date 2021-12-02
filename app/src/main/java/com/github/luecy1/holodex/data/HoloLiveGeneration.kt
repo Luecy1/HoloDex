@@ -13,7 +13,9 @@ enum class HoloLiveGeneration(
     Gamers(4),
     Third(5),
     Fourth(6),
-    Fifth(7);
+    Fifth(7),
+    Sixth(8),
+    ;
 
     fun getDisplayName(context: Context): String {
         val stringArray = context.resources.getStringArray(R.array.hololive_generation)
