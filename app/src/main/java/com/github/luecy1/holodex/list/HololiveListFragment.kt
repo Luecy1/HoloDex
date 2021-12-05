@@ -35,7 +35,7 @@ class HololiveListFragment : DaggerFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentItemListBinding.inflate(inflater, container, false)
         return binding.root
     }
