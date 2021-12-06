@@ -40,7 +40,7 @@ class HololiverDetailFragment : DaggerFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentHololiverDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
