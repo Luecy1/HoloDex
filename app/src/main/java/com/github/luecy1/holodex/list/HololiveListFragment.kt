@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.luecy1.holodex.BuildConfig
 import com.github.luecy1.holodex.EventObserver
 import com.github.luecy1.holodex.databinding.FragmentItemListBinding
 import com.github.luecy1.holodex.di.ViewModelBuilder
@@ -68,10 +69,12 @@ class HololiveListFragment : DaggerFragment() {
                 putString("name", it.name)
             }
 
-            // event log
-            FirebaseAnalytics.getInstance(requireContext()).logEvent(
-                FirebaseAnalytics.Event.SELECT_CONTENT, loggingBundle
-            )
+            if (!BuildConfig.DEBUG) {
+                // event log
+                FirebaseAnalytics.getInstance(requireContext()).logEvent(
+                    FirebaseAnalytics.Event.SELECT_CONTENT, loggingBundle
+                )
+            }
 
             val action =
                 HololiveListFragmentDirections.actionItemFragmentToHololiverDetailFragment(it)

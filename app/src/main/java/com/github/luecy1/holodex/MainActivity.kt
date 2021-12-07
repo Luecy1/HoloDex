@@ -43,12 +43,14 @@ class MainActivity : AppCompatActivity() {
                 val position = tab.position
                 when (position) {
                     0 -> {
-//                        controller.navigate(R.id.action_itemFragment_to_item2Fragment)
+                        // FIXME 同じ画面が開きつづける
+                        val bundle = bundleOf("kind" to "JP")
+                        controller.navigate(R.id.action_itemFragment_self, bundle)
                     }
                     1 -> {
                         Timber.d("en change")
                         val bundle = bundleOf("kind" to "EN")
-//                        controller.navigate(R.id.action_item2Fragment_to_itemFragment)
+                        controller.navigate(R.id.action_itemFragment_self, bundle)
                     }
                 }
             }

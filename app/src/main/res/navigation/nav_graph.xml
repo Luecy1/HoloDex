@@ -10,11 +10,18 @@
         android:name="com.github.luecy1.holodex.list.HololiveListFragment"
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_item_list">
+        <argument
+            android:name="kind"
+            android:defaultValue="JP"
+            app:argType="string" />
         <action
             android:id="@+id/action_itemFragment_to_hololiverDetailFragment"
             app:destination="@id/hololiverDetailFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_itemFragment_self"
+            app:destination="@id/itemFragment" />
     </fragment>
     <fragment
         android:id="@+id/hololiverDetailFragment"

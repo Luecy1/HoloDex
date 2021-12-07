@@ -40,10 +40,10 @@ class HololiveListViewModel @Inject constructor(
 
             when (val holoLiveListResult = repository.getHoloLiveList(forceLoad)) {
                 is Result.Success<List<GenerationItem>> -> {
-                    _hololiveList.value = holoLiveListResult.data
+                    _hololiveList.value = requireNotNull(holoLiveListResult.data)
                 }
                 is Result.Error -> {
-                    _hololiveList.value = null
+                    _hololiveList.value = emptyList()
                     _errorMessage.value = Event(R.string.error_message)
                 }
             }
