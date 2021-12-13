@@ -36,7 +36,7 @@ fun Generation() {
         Column(
             modifier = Modifier
                 .width(IntrinsicSize.Max)
-                .padding(start = 16.dp)
+                .padding(start = 16.dp, bottom = 4.dp)
         ) {
             Text(
                 text = "5th Generation",
