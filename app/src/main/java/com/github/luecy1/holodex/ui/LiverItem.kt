@@ -13,18 +13,26 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.github.luecy1.holodex.R
+import com.github.luecy1.holodex.data.HololiverItem
 import com.github.luecy1.holodex.style.HoloDexTheme
 import com.github.luecy1.holodex.style.textBackgroundColor
 import com.github.luecy1.holodex.style.textColor
 
+@ExperimentalCoilApi
 @Composable
-fun LiverItem() {
+fun LiverItem(
+    imagePainter: Painter? = null,  // for preview
+    liver: HololiverItem = lamyData,
+) {
     val roundedCornerSize = 10.dp
 
     Column(
@@ -32,7 +40,7 @@ fun LiverItem() {
         modifier = Modifier.width(200.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.lamy),
+            painter = imagePainter ?: rememberImagePainter(liver.imageUrl),
             contentDescription = "",
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -40,7 +48,7 @@ fun LiverItem() {
                 .fillMaxWidth()
         )
         Text(
-            text = "雪花ラミィ",
+            text = liver.name,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.h6.copy(color = MaterialTheme.colors.textColor),
             modifier = Modifier
@@ -56,18 +64,31 @@ fun LiverItem() {
     }
 }
 
+private val lamyData = HololiverItem(
+    id = 0,
+    name = "雪花ラミィ",
+    twitterScreenName = "",
+    imageUrl = "https://pbs.twimg.com/profile_images/1469238330067877889/imRH03bc_400x400.jpg",
+    generation = listOf(),
+    basicInfo = "",
+    channelId = "",
+    fanArtHashTag = "",
+)
+
+@ExperimentalCoilApi
 @Preview(showBackground = false)
 @Composable
 fun LiverItemPreview() {
     HoloDexTheme {
-        LiverItem()
+        LiverItem(painterResource(id = R.drawable.lamy), lamyData)
     }
 }
 
+@ExperimentalCoilApi
 @Preview(showBackground = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun LiverItemPreviewDark() {
     HoloDexTheme(darkTheme = true) {
-        LiverItem()
+        LiverItem(painterResource(id = R.drawable.lamy), lamyData)
     }
 }
