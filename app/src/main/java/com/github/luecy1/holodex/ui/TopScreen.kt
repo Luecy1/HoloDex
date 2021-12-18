@@ -12,18 +12,23 @@ import com.github.luecy1.holodex.style.HoloDexTheme
 
 
 @Composable
-@Preview
 fun TopScreen() {
-    HoloDexTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text(stringResource(id = R.string.app_name)) },
-                    backgroundColor = MaterialTheme.colors.primary
-                )
-            }
-        ) {
-            LiverGroup()
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(id = R.string.app_name)) },
+                backgroundColor = MaterialTheme.colors.primary
+            )
         }
+    ) {
+        LiverGroup()
+    }
+}
+
+@Composable
+@Preview
+fun TopScreenPreview() {
+    HoloDexTheme {
+        TopScreen()
     }
 }

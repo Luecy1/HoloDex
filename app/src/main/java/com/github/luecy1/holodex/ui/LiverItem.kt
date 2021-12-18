@@ -3,10 +3,7 @@ package com.github.luecy1.holodex.ui
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -51,7 +48,7 @@ fun LiverItem(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .clip(RoundedCornerShape(topStart = roundedCornerSize, topEnd = roundedCornerSize))
-                .fillMaxWidth()
+                .size(200.dp)
         )
         Text(
             text = liver.name,

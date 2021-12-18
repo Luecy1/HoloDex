@@ -8,6 +8,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringArrayResource
@@ -31,19 +32,11 @@ fun GenerationPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun GenerationPreviewDark() {
     HoloDexTheme {
-        Generation(sampleGeneration)
+        CompositionLocalProvider(ImagePreview provides false) {
+            Generation(sampleGeneration)
+        }
     }
 }
-
-//@Composable
-//@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-//fun GenerationPreviewWithImageDark() {
-//    HoloDexTheme {
-//        CompositionLocalProvider(ImagePreview provides false) {
-//            Generation(sampleGeneration)
-//        }
-//    }
-//}
 
 @Composable
 fun Generation(generation: GenerationItem) {

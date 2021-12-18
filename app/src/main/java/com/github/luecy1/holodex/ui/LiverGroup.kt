@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.luecy1.holodex.preview_data.sampleGeneration
@@ -22,7 +23,9 @@ fun LiverGroupPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun LiverGroupPreviewNight() {
     HoloDexTheme {
-        LiverGroup()
+        CompositionLocalProvider(ImagePreview provides false) {
+            LiverGroup()
+        }
     }
 }
 
@@ -31,8 +34,6 @@ fun LiverGroup() {
     Column(
         Modifier.verticalScroll(rememberScrollState())
     ) {
-        Generation(sampleGeneration)
-        Generation(sampleGeneration)
         Generation(sampleGeneration)
         Generation(sampleGeneration)
         Generation(sampleGeneration)
