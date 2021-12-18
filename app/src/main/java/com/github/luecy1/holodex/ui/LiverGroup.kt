@@ -7,6 +7,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.github.luecy1.holodex.preview_data.sampleGeneration
 import com.github.luecy1.holodex.style.HoloDexTheme
 
 @Composable
@@ -26,16 +27,14 @@ fun LiverGroupPreviewNight() {
 }
 
 @Composable
-private fun LiverGroup() {
+fun LiverGroup() {
     Column(
         Modifier.verticalScroll(rememberScrollState())
     ) {
-        Generation()
-        Generation()
-        Generation()
-        Generation()
-        Generation()
-        Generation()
-        Generation()
+        Generation(sampleGeneration)
+        Generation(sampleGeneration)
+        Generation(sampleGeneration)
+        Generation(sampleGeneration)
+        Generation(sampleGeneration)
     }
 }

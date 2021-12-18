@@ -3,16 +3,19 @@ package com.github.luecy1.holodex.ui
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.luecy1.holodex.R
+import com.github.luecy1.holodex.data.GenerationItem
+import com.github.luecy1.holodex.preview_data.sampleGeneration
 import com.github.luecy1.holodex.style.HoloDexTheme
 import com.github.luecy1.holodex.style.textColor
 
@@ -20,7 +23,7 @@ import com.github.luecy1.holodex.style.textColor
 @Preview(showBackground = true)
 fun GenerationPreview() {
     HoloDexTheme {
-        Generation()
+        Generation(sampleGeneration)
     }
 }
 
@@ -28,12 +31,25 @@ fun GenerationPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun GenerationPreviewDark() {
     HoloDexTheme {
-        Generation()
+        Generation(sampleGeneration)
     }
 }
 
+//@Composable
+//@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+//fun GenerationPreviewWithImageDark() {
+//    HoloDexTheme {
+//        CompositionLocalProvider(ImagePreview provides false) {
+//            Generation(sampleGeneration)
+//        }
+//    }
+//}
+
 @Composable
-fun Generation() {
+fun Generation(generation: GenerationItem) {
+
+    val generationName = stringArrayResource(id = R.array.hololive_generation)[generation.id]
+
     Column {
         Column(
             modifier = Modifier
@@ -41,7 +57,7 @@ fun Generation() {
                 .padding(start = 16.dp, bottom = 4.dp)
         ) {
             Text(
-                text = "5th Generation",
+                text = generationName,
                 style = MaterialTheme.typography.h5,
                 color = MaterialTheme.colors.textColor,
                 modifier = Modifier
@@ -54,18 +70,18 @@ fun Generation() {
                     .height(4.dp)
             )
         }
-        Livers()
+        Livers(generation)
     }
 }
 
 @Composable
-private fun Livers() {
+fun Livers(generation: GenerationItem) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(5) {
-            LiverItem(painterResource(id = R.drawable.lamy))
+        items(generation.hololiverList) { liver ->
+            LiverItem(liver = liver)
         }
     }
 }
