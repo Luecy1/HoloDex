@@ -21,8 +21,5 @@
         android:name="com.github.luecy1.holodex.detail.HololiverDetailFragment"
         android:label="fragment_hololiver_detail"
         tools:layout="@layout/fragment_hololiver_detail">
-        <argument
-            android:name="hololiverItem"
-            app:argType="com.github.luecy1.holodex.data.HololiverItem" />
     </fragment>
 </navigation>

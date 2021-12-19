@@ -4,26 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.luecy1.holodex.EventObserver
 import com.github.luecy1.holodex.databinding.FragmentItemListBinding
-import com.github.luecy1.holodex.di.ViewModelBuilder
-import com.github.luecy1.holodex.di.ViewModelKey
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
-import dagger.Binds
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
-import dagger.android.support.DaggerFragment
-import dagger.multibindings.IntoMap
 import javax.inject.Inject
 
-class HololiveListFragment : DaggerFragment() {
+class HololiveListFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -73,9 +65,6 @@ class HololiveListFragment : DaggerFragment() {
                 FirebaseAnalytics.Event.SELECT_CONTENT, loggingBundle
             )
 
-            val action =
-                HololiveListFragmentDirections.actionItemFragmentToHololiverDetailFragment(it)
-            findNavController().navigate(action)
         })
 
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -85,19 +74,3 @@ class HololiveListFragment : DaggerFragment() {
     }
 }
 
-@Module
-abstract class HoloLiveListViewModelModule {
-
-    @ContributesAndroidInjector(
-        modules = [
-            ViewModelBuilder::class
-        ]
-    )
-    internal abstract fun hololiveListFragment(): HololiveListFragment
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(HololiveListViewModel::class)
-    abstract fun bindViewModel(viewModel: HololiveListViewModel): ViewModel
-
-}

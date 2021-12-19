@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.RoundedCornersTransformation
 import com.github.luecy1.holodex.R
 import com.github.luecy1.holodex.data.HololiverItem
 import com.github.luecy1.holodex.databinding.ItemHololiveBinding
@@ -36,11 +34,6 @@ class HololiveMemberItemAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(item: HololiverItem, viewModel: HololiveListViewModel) {
-            binding.item = item
-            binding.liverImage.load(item.imageUrl) {
-                transformations(RoundedCornersTransformation(topLeft = round, topRight = round))
-            }
-            binding.viewModel = viewModel
         }
     }
 
