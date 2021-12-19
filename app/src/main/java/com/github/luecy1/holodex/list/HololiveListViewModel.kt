@@ -42,7 +42,7 @@ class HololiveListViewModel @Inject constructor(
                 is Result.Success<List<GenerationItem>> -> {
                 }
                 is Result.Error -> {
-                    _hololiveList.value = null
+                    _hololiveList.value = emptyList()
                     _errorMessage.value = Event(R.string.error_message)
                 }
             }
