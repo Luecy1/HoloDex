@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             HoloDexTheme {
                 CompositionLocalProvider(ImagePreview provides false) {
-                    Navigation()
+                    Navigation(viewModel)
                 }
             }
         }
@@ -33,12 +33,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Navigation() {
+fun Navigation(hololiveListViewModel: HololiveListViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "top") {
         composable("top") {
-            TopScreen()
+            TopScreen(hololiveListViewModel)
         }
     }
 }

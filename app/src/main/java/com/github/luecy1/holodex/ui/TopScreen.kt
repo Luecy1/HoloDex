@@ -7,12 +7,15 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.github.luecy1.holodex.R
 import com.github.luecy1.holodex.style.HoloDexTheme
 
 
 @Composable
-fun TopScreen() {
+fun TopScreen(
+    hololiveListViewModel: HololiveListViewModel = viewModel()
+) {
     Scaffold(
         topBar = {
             TopAppBar(

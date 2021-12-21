@@ -12,6 +12,8 @@ import com.github.luecy1.holodex.data.Result
 import com.github.luecy1.holodex.repository.HoloLiveRepository
 import com.github.luecy1.holodex.repository.RemoteHoloLiveRepository
 import com.github.luecy1.holodex.repository.api.HololiveAPIService
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +21,9 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -31,17 +35,22 @@ class ApiClientModule {
     @Provides
     @Singleton
     fun provideApiClient(): HololiveAPIService {
-        return Retrofit.Builder()
-            .baseUrl("")
-//            .addConverterFactory(
-//                Json {
-//                    ignoreUnknownKeys = true
-//                }.asConverterFactory(
-//                    "application/json".toMediaType()
-//                ),
-//            )
+
+        val okhttp = OkHttpClient
+            .Builder()
             .build()
-            .create(HololiveAPIService::class.java)
+
+        val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://luecy1.github.io/HoloDexBackEnd/")
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .client(okhttp)
+            .build()
+
+        return retrofit.create(HololiveAPIService::class.java)
     }
 }
 
