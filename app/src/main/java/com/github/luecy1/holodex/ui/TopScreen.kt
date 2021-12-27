@@ -1,21 +1,23 @@
 package com.github.luecy1.holodex.ui
 
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.luecy1.holodex.R
-import com.github.luecy1.holodex.style.HoloDexTheme
 
 
 @Composable
 fun TopScreen(
-    hololiveListViewModel: HololiveListViewModel = viewModel()
+    viewModel: HololiveListViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -24,14 +26,30 @@ fun TopScreen(
             )
         }
     ) {
-        LiverGroup()
-    }
-}
 
-@Composable
-@Preview
-fun TopScreenPreview() {
-    HoloDexTheme {
-        TopScreen()
+        when (uiState) {
+            is HololiveListViewModel.UiState.Initial -> {
+                viewModel.initData(false)
+            }
+            is HololiveListViewModel.UiState.Failure -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+            is HololiveListViewModel.UiState.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+            is HololiveListViewModel.UiState.Success -> {
+                LiverGroup((uiState as HololiveListViewModel.UiState.Success).data)
+            }
+        }
     }
 }

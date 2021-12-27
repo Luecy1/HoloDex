@@ -41,7 +41,7 @@ fun GenerationPreviewDark() {
 @Composable
 fun Generation(generation: GenerationItem) {
 
-    val generationName = stringArrayResource(id = R.array.hololive_generation)[generation.id]
+    val generationName = stringArrayResource(id = R.array.hololive_generation)[generation.id - 1]
 
     Column {
         Column(

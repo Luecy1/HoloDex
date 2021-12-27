@@ -38,7 +38,9 @@ val minatoAquaData = HololiverItem(
 )
 
 val sampleGeneration = GenerationItem(
-    id = 0,
+    id = 1,
     hololiverList = listOf(lamyData, tokinosoraData, minatoAquaData),
     generation = HoloLiveGeneration.Zero
 )
+
+val sampleGenerationListList = listOf(sampleGeneration, sampleGeneration, sampleGeneration)
