@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.luecy1.holodex.data.GenerationItem
-import com.github.luecy1.holodex.data.HololiverItem
 import com.github.luecy1.holodex.data.Result
 import com.github.luecy1.holodex.repository.HoloLiveRepository
 import com.github.luecy1.holodex.repository.RemoteHoloLiveRepository
@@ -15,7 +14,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.launch
@@ -53,19 +51,22 @@ class ApiClientModule {
 }
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 class RemoteDataSourceModule {
+
     @Provides
+    @Singleton
     fun provideUserRepository(remoteHoloLiveRepository: HololiveAPIService): RemoteHoloLiveRepository {
         return RemoteHoloLiveRepository(remoteHoloLiveRepository)
     }
 }
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 object UserRepositoryModule {
 
     @Provides
+    @Singleton
     fun provideUserRepository(remoteHoloLiveRepository: RemoteHoloLiveRepository): HoloLiveRepository {
         return remoteHoloLiveRepository
     }
@@ -99,9 +100,5 @@ class HololiveListViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-    fun onClickHololiver(hololiverItem: HololiverItem) {
-//        _openHololiver.postValue(Event(hololiverItem))
     }
 }

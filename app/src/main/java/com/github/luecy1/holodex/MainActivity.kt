@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.github.luecy1.holodex.style.HoloDexTheme
+import com.github.luecy1.holodex.ui.DetailScreen
 import com.github.luecy1.holodex.ui.ImagePreview
 import com.github.luecy1.holodex.ui.TopScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +38,7 @@ fun Navigation() {
     NavHost(navController = navController, startDestination = "top") {
         composable("top") { _ ->
             TopScreen(viewModel = hiltViewModel()) {
-                navController.navigate("detail/${it.id}}")
+                navController.navigate("detail/${it.id}")
             }
         }
         composable(
@@ -45,6 +46,7 @@ fun Navigation() {
         ) { backStackEntry ->
             val liver = backStackEntry.arguments?.getString("liver")!!
             Text(text = liver)
+            DetailScreen(hiltViewModel(), liver)
         }
     }
 }

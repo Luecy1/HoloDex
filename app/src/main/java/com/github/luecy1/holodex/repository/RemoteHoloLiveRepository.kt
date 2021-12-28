@@ -65,4 +65,17 @@ class RemoteHoloLiveRepository(
             }
         }
     }
+
+    override fun findHoloLiver(id: String): HololiverItem {
+        val liverSet = mutableSetOf<HololiverItem>()
+        (cache as Result.Success<List<GenerationItem>>).data.forEach { generationItem ->
+            generationItem.hololiverList.forEach {
+                liverSet.add(it)
+            }
+        }
+
+        return liverSet.find {
+            it.id == id.toInt()
+        }!!
+    }
 }
