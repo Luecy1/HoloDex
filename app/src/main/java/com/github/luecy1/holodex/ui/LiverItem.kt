@@ -3,6 +3,7 @@ package com.github.luecy1.holodex.ui
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -29,6 +30,7 @@ import com.github.luecy1.holodex.style.textColor
 @Composable
 fun LiverItem(
     liver: HololiverItem = lamyData,
+    onClick: (HololiverItem) -> Unit,
 ) {
     val roundedCornerSize = 10.dp
 
@@ -40,7 +42,11 @@ fun LiverItem(
 
     Column(
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier.width(200.dp)
+        modifier = Modifier
+            .width(200.dp)
+            .clickable {
+                onClick(liver)
+            }
     ) {
         Image(
             painter = imagePainter,
@@ -73,7 +79,8 @@ fun LiverItem(
 @Composable
 fun LiverItemPreview() {
     HoloDexTheme {
-        LiverItem(lamyData)
+        LiverItem(lamyData) {
+        }
     }
 }
 
@@ -82,7 +89,8 @@ fun LiverItemPreview() {
 @Composable
 fun LiverItemPreviewDark() {
     HoloDexTheme(darkTheme = true) {
-        LiverItem(lamyData)
+        LiverItem(lamyData) {
+        }
     }
 }
 

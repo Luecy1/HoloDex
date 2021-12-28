@@ -3,6 +3,7 @@ package com.github.luecy1.holodex
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,8 +35,16 @@ fun Navigation() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "top") {
-        composable("top") {
-            TopScreen(viewModel = hiltViewModel())
+        composable("top") { _ ->
+            TopScreen(viewModel = hiltViewModel()) {
+                navController.navigate("detail/${it.id}}")
+            }
+        }
+        composable(
+            "detail/{liver}"
+        ) { backStackEntry ->
+            val liver = backStackEntry.arguments?.getString("liver")!!
+            Text(text = liver)
         }
     }
 }

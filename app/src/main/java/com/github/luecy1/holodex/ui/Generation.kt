@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.luecy1.holodex.R
 import com.github.luecy1.holodex.data.GenerationItem
+import com.github.luecy1.holodex.data.HololiverItem
 import com.github.luecy1.holodex.preview_data.sampleGeneration
 import com.github.luecy1.holodex.style.HoloDexTheme
 import com.github.luecy1.holodex.style.textColor
@@ -24,7 +25,8 @@ import com.github.luecy1.holodex.style.textColor
 @Preview(showBackground = true)
 fun GenerationPreview() {
     HoloDexTheme {
-        Generation(sampleGeneration)
+        Generation(sampleGeneration) {
+        }
     }
 }
 
@@ -33,13 +35,14 @@ fun GenerationPreview() {
 fun GenerationPreviewDark() {
     HoloDexTheme {
         CompositionLocalProvider(ImagePreview provides false) {
-            Generation(sampleGeneration)
+            Generation(sampleGeneration) {
+            }
         }
     }
 }
 
 @Composable
-fun Generation(generation: GenerationItem) {
+fun Generation(generation: GenerationItem, onClick: (HololiverItem) -> Unit) {
 
     val generationName = stringArrayResource(id = R.array.hololive_generation)[generation.id - 1]
 
@@ -63,18 +66,22 @@ fun Generation(generation: GenerationItem) {
                     .height(4.dp)
             )
         }
-        Livers(generation)
+        Livers(generation) {
+            onClick(it)
+        }
     }
 }
 
 @Composable
-fun Livers(generation: GenerationItem) {
+fun Livers(generation: GenerationItem, onClick: (HololiverItem) -> Unit) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(generation.hololiverList) { liver ->
-            LiverItem(liver = liver)
+            LiverItem(liver = liver) {
+                onClick(it)
+            }
         }
     }
 }

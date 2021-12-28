@@ -10,11 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.luecy1.holodex.R
+import com.github.luecy1.holodex.data.HololiverItem
 
 
 @Composable
 fun TopScreen(
-    viewModel: HololiveListViewModel = hiltViewModel()
+    viewModel: HololiveListViewModel = hiltViewModel(),
+    onClick: (HololiverItem) -> Unit,
 ) {
     val uiState by viewModel.uiState
 
@@ -48,7 +50,9 @@ fun TopScreen(
                 }
             }
             is HololiveListViewModel.UiState.Success -> {
-                LiverGroup((uiState as HololiveListViewModel.UiState.Success).data)
+                LiverGroup((uiState as HololiveListViewModel.UiState.Success).data) {
+                    onClick(it)
+                }
             }
         }
     }

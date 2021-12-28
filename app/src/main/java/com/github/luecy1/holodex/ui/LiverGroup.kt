@@ -9,6 +9,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.luecy1.holodex.data.GenerationItem
+import com.github.luecy1.holodex.data.HololiverItem
 import com.github.luecy1.holodex.preview_data.sampleGenerationListList
 import com.github.luecy1.holodex.style.HoloDexTheme
 
@@ -16,7 +17,8 @@ import com.github.luecy1.holodex.style.HoloDexTheme
 @Preview(showBackground = true)
 fun LiverGroupPreview() {
     HoloDexTheme {
-        LiverGroup(sampleGenerationListList)
+        LiverGroup(sampleGenerationListList) {
+        }
     }
 }
 
@@ -25,18 +27,21 @@ fun LiverGroupPreview() {
 fun LiverGroupPreviewNight() {
     HoloDexTheme {
         CompositionLocalProvider(ImagePreview provides false) {
-            LiverGroup(sampleGenerationListList)
+            LiverGroup(sampleGenerationListList) {
+            }
         }
     }
 }
 
 @Composable
-fun LiverGroup(generationList: List<GenerationItem>) {
+fun LiverGroup(generationList: List<GenerationItem>, onClick: (HololiverItem) -> Unit) {
     Column(
         Modifier.verticalScroll(rememberScrollState())
     ) {
         for (generationItem in generationList) {
-            Generation(generation = generationItem)
+            Generation(generation = generationItem) {
+                onClick(it)
+            }
         }
     }
 }
