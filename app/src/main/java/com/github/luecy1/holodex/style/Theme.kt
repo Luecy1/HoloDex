@@ -4,6 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun HoloDexTheme(
@@ -23,6 +24,9 @@ fun HoloDexTheme(
         typography = Typography(
             h6 = MaterialTheme.typography.h6.copy(
                 color = MaterialTheme.colors.textColor
+            ),
+            body2 = MaterialTheme.typography.body2.copy(
+                fontSize = 14.sp
             )
         ),
         shapes = Shapes(),
