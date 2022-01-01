@@ -12,8 +12,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.github.luecy1.holodex.style.HoloDexTheme
 import com.github.luecy1.holodex.ui.DetailScreen
-import com.github.luecy1.holodex.ui.ImagePreview
-import com.github.luecy1.holodex.ui.TopScreen
+import com.github.luecy1.holodex.ui.top.ImagePreview
+import com.github.luecy1.holodex.ui.top.TopScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.github.luecy1.holodex.ui
+package com.github.luecy1.holodex.ui.top
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image

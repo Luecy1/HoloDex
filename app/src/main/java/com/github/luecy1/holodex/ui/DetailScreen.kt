@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.github.luecy1.holodex.R
+import com.github.luecy1.holodex.ui.top.HololiveDetailViewModel
+import com.github.luecy1.holodex.ui.top.ImagePreview
 import timber.log.Timber
 
 val roundedCornerSize = 10.dp

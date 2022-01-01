@@ -1,4 +1,4 @@
-package com.github.luecy1.holodex.ui
+package com.github.luecy1.holodex.ui.top
 
 import androidx.lifecycle.ViewModel
 import com.github.luecy1.holodex.data.HololiverItem

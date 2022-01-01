@@ -1,4 +1,4 @@
-package com.github.luecy1.holodex.ui
+package com.github.luecy1.holodex.ui.top
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
