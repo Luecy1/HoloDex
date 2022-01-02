@@ -7,12 +7,12 @@ import com.github.luecy1.holodex.data.HololiverItem
 val lamyData = HololiverItem(
     id = 0,
     name = "雪花ラミィ",
-    twitterScreenName = "",
+    twitterScreenName = "yukihanalamy",
     imageUrl = "https://pbs.twimg.com/profile_images/1469238330067877889/imRH03bc_400x400.jpg",
-    generation = listOf(),
-    basicInfo = "",
-    channelId = "",
-    fanArtHashTag = "",
+    generation = listOf("7"),
+    basicInfo = "デビュー日：2020年8月12日（水）\n誕生日：11月15日\n身長：158cm\nファンネーム：雪民（ゆきみん）\nイラストレーター：リン☆ユウ",
+    channelId = "UCFKOVgVbGmX65RxO3EtH3iw",
+    fanArtHashTag = "#LamyArt",
 )
 
 val tokinosoraData = HololiverItem(

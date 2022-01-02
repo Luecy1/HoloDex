@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.github.luecy1.holodex.R
+import com.github.luecy1.holodex.data.HololiverItem
+import com.github.luecy1.holodex.preview_data.lamyData
 import com.github.luecy1.holodex.style.HoloDexTheme
 import com.github.luecy1.holodex.ui.top.HololiveDetailViewModel
 import com.github.luecy1.holodex.ui.top.ImagePreview
@@ -75,19 +77,24 @@ fun DetailScreen(
 
 @Composable
 @Preview(showBackground = true)
-fun BasicInfo() {
+fun BasicInfoPreview() {
     HoloDexTheme {
-        Column(
-            Modifier.padding(start = 16.dp, end = 16.dp)
-        ) {
-            Text(
-                text = stringResource(id = R.string.basic_info),
-                style = MaterialTheme.typography.h4
-            )
-            Text(
-                text = "誕生日:4/22\n身長142cm\nファンネーム：へい民\nイラストレーター：おしおしお",
-                style = MaterialTheme.typography.body2
-            )
-        }
+        BasicInfo(lamyData)
+    }
+}
+
+@Composable
+private fun BasicInfo(liver: HololiverItem) {
+    Column(
+        Modifier.padding(start = 16.dp, end = 16.dp)
+    ) {
+        Text(
+            text = stringResource(id = R.string.basic_info),
+            style = MaterialTheme.typography.h4
+        )
+        Text(
+            text = liver.basicInfo,
+            style = MaterialTheme.typography.body2
+        )
     }
 }
