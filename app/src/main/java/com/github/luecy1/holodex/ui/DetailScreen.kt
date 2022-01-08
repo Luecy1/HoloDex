@@ -84,7 +84,7 @@ fun BasicInfoPreview() {
 }
 
 @Composable
-private fun BasicInfo(liver: HololiverItem) {
+fun BasicInfo(liver: HololiverItem) {
     Column(
         Modifier.padding(start = 16.dp, end = 16.dp)
     ) {
@@ -96,5 +96,49 @@ private fun BasicInfo(liver: HololiverItem) {
             text = liver.basicInfo,
             style = MaterialTheme.typography.body2
         )
+    }
+}
+
+
+@Composable
+@Preview(showBackground = true)
+fun StreamInfoPreview() {
+    val liver = lamyData
+
+    HoloDexTheme {
+        Column(
+            Modifier.padding(start = 16.dp, end = 16.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.stream_info),
+                style = MaterialTheme.typography.h4
+            )
+        }
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun StreamItemPreview() {
+    val liver = lamyData
+
+    HoloDexTheme {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.dummy_480x360),
+                contentDescription = "",
+                Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(ratio = 16f / 9f)
+            )
+            Text(
+                text = "今年もよろしく生放送あああああああああああああ",
+                style = MaterialTheme.typography.caption,
+            )
+        }
     }
 }
