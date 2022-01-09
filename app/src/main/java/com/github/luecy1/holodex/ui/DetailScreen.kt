@@ -20,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.github.luecy1.holodex.R
 import com.github.luecy1.holodex.data.HololiverItem
+import com.github.luecy1.holodex.detail.StreamItem
 import com.github.luecy1.holodex.preview_data.lamyData
 import com.github.luecy1.holodex.style.HoloDexTheme
 import com.github.luecy1.holodex.ui.top.HololiveDetailViewModel
@@ -120,7 +121,12 @@ fun StreamInfoPreview() {
 @Composable
 @Preview(showBackground = true)
 fun StreamItemPreview() {
-    val liver = lamyData
+    val streamItem = StreamItem(
+        videoId = "",
+        title = "",
+        description = "",
+        thumbnail = "",
+    )
 
     HoloDexTheme {
         Column(
