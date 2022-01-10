@@ -22,11 +22,15 @@ fun HoloDexTheme(
             primary = Color(0x80, 0xDB, 0xF6)
         ),
         typography = Typography(
+            h4 = MaterialTheme.typography.h4.copy(
+                color = MaterialTheme.colors.textColor
+            ),
             h6 = MaterialTheme.typography.h6.copy(
                 color = MaterialTheme.colors.textColor
             ),
             body2 = MaterialTheme.typography.body2.copy(
-                fontSize = 14.sp
+                fontSize = 14.sp,
+                color = MaterialTheme.colors.textColor
             )
         ),
         shapes = Shapes(),

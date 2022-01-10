@@ -2,6 +2,8 @@ package com.github.luecy1.holodex.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -23,6 +25,7 @@ import com.github.luecy1.holodex.data.HololiverItem
 import com.github.luecy1.holodex.detail.StreamItem
 import com.github.luecy1.holodex.preview_data.lamyData
 import com.github.luecy1.holodex.style.HoloDexTheme
+import com.github.luecy1.holodex.style.textColor
 import com.github.luecy1.holodex.ui.top.HololiveDetailViewModel
 import com.github.luecy1.holodex.ui.top.ImagePreview
 import timber.log.Timber
@@ -104,7 +107,16 @@ fun BasicInfo(liver: HololiverItem) {
 @Composable
 @Preview(showBackground = true)
 fun StreamInfoPreview() {
-    val liver = lamyData
+
+    val streamItemList = (0..3).map {
+        StreamItem(
+            videoId = "Q5xsG5XGAEI",
+            title = "【オリ曲】まったりのんびり歌う枠【#ときのそら生放送】",
+            description = "今年の歌い始めはオリ曲だ～！！z\n\n" +
+                    "My originals song. singing Stream!!\n",
+            thumbnail = "https://i2.ytimg.com/vi/Q5xsG5XGAEI/hqdefault.jpg",
+        )
+    }
 
     HoloDexTheme {
         Column(
@@ -112,8 +124,16 @@ fun StreamInfoPreview() {
         ) {
             Text(
                 text = stringResource(id = R.string.stream_info),
-                style = MaterialTheme.typography.h4
+                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.textColor)
             )
+
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                items(streamItemList) {
+                    StreamItem(streamItem = it)
+                }
+            }
         }
     }
 }
@@ -122,29 +142,39 @@ fun StreamInfoPreview() {
 @Preview(showBackground = true)
 fun StreamItemPreview() {
     val streamItem = StreamItem(
-        videoId = "",
-        title = "",
-        description = "",
-        thumbnail = "",
+        videoId = "Q5xsG5XGAEI",
+        title = "【オリ曲】まったりのんびり歌う枠【#ときのそら生放送】",
+        description = "今年の歌い始めはオリ曲だ～！！z\n\n" +
+                "My originals song. singing Stream!!\n",
+        thumbnail = "https://i2.ytimg.com/vi/Q5xsG5XGAEI/hqdefault.jpg",
     )
 
     HoloDexTheme {
-        Column(
-            Modifier
+        StreamItem(streamItem = streamItem)
+    }
+}
+
+@Composable
+fun StreamItem(streamItem: StreamItem) {
+
+    val imagePainter = rememberImagePainter(streamItem.thumbnail)
+
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp)
+    ) {
+        Image(
+            painter = imagePainter,
+            contentDescription = "",
+            contentScale = ContentScale.FillWidth,
+            modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.dummy_480x360),
-                contentDescription = "",
-                Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(ratio = 16f / 9f)
-            )
-            Text(
-                text = "今年もよろしく生放送あああああああああああああ",
-                style = MaterialTheme.typography.caption,
-            )
-        }
+                .aspectRatio(ratio = 16f / 9f)
+        )
+        Text(
+            text = streamItem.title,
+            style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.textColor),
+        )
     }
 }
